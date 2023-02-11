@@ -13,7 +13,7 @@ import {
 import { Col, Row, Spin, Typography } from 'antd';
 
 import { getAllContactInfos } from '../feature/AdminContactInfo/AdminContactInfoSlice';
-import logoImage from '../images/alluring_decors_logo.png';
+import logoImage from '../images/logo.png';
 
 import styles from '../css/Footer.module.css';
 const { Title } = Typography;
@@ -51,7 +51,7 @@ const Footer = () => {
           </Row>
           <Row>
             <p className={styles.footerContent}>
-              Copyright <CopyrightOutlined /> 2022 by TEAM
+              Copyright <CopyrightOutlined /> 2023 by TEAM
             </p>
           </Row>
           <Row justify="start" gutter={10}>

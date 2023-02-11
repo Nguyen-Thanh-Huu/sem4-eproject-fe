@@ -19,7 +19,7 @@ import {
 import { Avatar, Badge, Button, Col, Dropdown, Menu, Row, Space } from 'antd';
 
 import { resetUser } from '../feature/user/UserSlice';
-import logoImage from '../images/alluring_decors_logo.png';
+import logoImage from '../images/logo.png';
 
 import styles from '../css/Header.module.css';
 
