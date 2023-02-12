@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Col, Form, Input, Row, Typography } from 'antd';
+import { Button, Card, Col, Row, Typography } from 'antd';
 
 import partner1Image from '../images/home/partner_1.png';
 import partner2Image from '../images/home/partner_2.png';

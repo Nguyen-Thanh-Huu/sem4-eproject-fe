@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const getAllFaqsUrl = 'https://localhost:44302/api/Faq';
-const createNewFaqUrl = 'https://localhost:44302/api/Faq/CreateFaq';
-const updateFaqUrl = 'https://localhost:44302/api/Faq/UpdateFaq';
-const deleteFaqUrl = 'https://localhost:44302/api/Faq/DeleteFaq';
+const getAllFaqsUrl = 'http://localhost:8080/api/v1/faqs';
+const createNewFaqUrl = 'http://localhost:8080/api/v1/insert-faq';
+const updateFaqUrl = 'http://localhost:8080/api/v1/update-faq';
+const deleteFaqUrl = 'http://localhost:8080/api/v1/delete-faq';
 
 const initialState = {
   faqs: null,
@@ -36,6 +36,7 @@ export const createNewFaq = createAsyncThunk('/api/Faq/CreateFaq', async ({ ques
       id: '',
       question,
       answer,
+      deleted: false,
     },
   });
 
@@ -44,7 +45,7 @@ export const createNewFaq = createAsyncThunk('/api/Faq/CreateFaq', async ({ ques
 
 export const updateFaq = createAsyncThunk('/api/Faq/UpdateFaq', async ({ id, question, answer }, thunkApi) => {
   const response = await axios({
-    method: 'post',
+    method: 'put',
     url: updateFaqUrl,
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -53,21 +54,25 @@ export const updateFaq = createAsyncThunk('/api/Faq/UpdateFaq', async ({ id, que
       id,
       question,
       answer,
+      deleted: false,
     },
   });
 
   return response.data.status;
 });
 
-export const deleteFaq = createAsyncThunk('/api/Faq/DeleteFaq', async ({ id }, thunkApi) => {
+export const deleteFaq = createAsyncThunk('/api/Faq/DeleteFaq', async ({ id, question, answer }, thunkApi) => {
   const response = await axios({
-    method: 'post',
+    method: 'delete',
     url: deleteFaqUrl,
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
     data: {
       id,
+      question,
+      answer,
+      deleted: true,
     },
   });
 

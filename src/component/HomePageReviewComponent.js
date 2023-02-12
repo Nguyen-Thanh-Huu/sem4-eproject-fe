@@ -1,8 +1,6 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Card, Col, Form, Input, Row, Typography } from 'antd';
+import { Avatar, Input, Typography } from 'antd';
 
 import AvatarImage from '../images/home/avatar.jpg';
 import QuotationMarkImage from '../images/home/quotation_mark.png';

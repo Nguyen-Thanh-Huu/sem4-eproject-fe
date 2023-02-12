@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CarryOutOutlined } from '@ant-design/icons';
+import { CarryOutOutlined, ClearOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Table, Typography } from 'antd';
 
 import { createNewFaq, deleteFaq, getAllFaqs, updateFaq } from '../feature/admin_faq/AdminFaqSlice';
@@ -48,10 +48,16 @@ const AdminFaq = () => {
   };
 
   const handleDeleteFaq = async () => {
-    await dispatch(deleteFaq({ id: selectedRow[0].id }));
+    await dispatch(
+      deleteFaq({ id: selectedRow[0].id, question: selectedRow[0].question, answer: selectedRow[0].answer })
+    );
     await dispatch(getAllFaqs());
 
     setSelectedRow([]);
+    form.resetFields();
+  };
+
+  const handleClearForm = () => {
     form.resetFields();
   };
 
@@ -131,7 +137,68 @@ const AdminFaq = () => {
                 <Input.TextArea showCount rows={10} maxLength={2000} />
               </Form.Item>
 
-              {selectedRow.length > 0 ? (
+              <Col>
+                <Row justify="space-evenly">
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      type="primary"
+                      shape="round"
+                      htmlType="submit"
+                      block
+                      icon={<PlusOutlined />}
+                      style={{ width: '7rem' }}
+                    >
+                      New
+                    </Button>
+                  </Form.Item>
+
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      danger
+                      type="primary"
+                      shape="round"
+                      htmlType="button"
+                      block
+                      icon={<ClearOutlined />}
+                      onClick={handleClearForm}
+                      style={{ width: '7rem' }}
+                    >
+                      Clear
+                    </Button>
+                  </Form.Item>
+                </Row>
+                <Row justify="space-evenly">
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      type="primary"
+                      shape="round"
+                      htmlType="submit"
+                      block
+                      icon={<CarryOutOutlined />}
+                      style={{ width: '7rem' }}
+                    >
+                      Update
+                    </Button>
+                  </Form.Item>
+
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      danger
+                      type="primary"
+                      shape="round"
+                      htmlType="button"
+                      block
+                      icon={<DeleteOutlined />}
+                      onClick={handleDeleteFaq}
+                      style={{ width: '7rem' }}
+                    >
+                      Delete
+                    </Button>
+                  </Form.Item>
+                </Row>
+              </Col>
+
+              {/* {selectedRow.length > 0 ? (
                 <Row justify="space-evenly">
                   <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
                     <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
@@ -159,7 +226,7 @@ const AdminFaq = () => {
                     Create Faq
                   </Button>
                 </Form.Item>
-              )}
+              )} */}
             </Form>
           </Col>
         </Row>

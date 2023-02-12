@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Col, Form, Input, Row, Typography } from 'antd';
+import { Card, Col, Row, Typography } from 'antd';
 
 import statistic1Image from '../images/home/statistic_1.png';
 import statistic2Image from '../images/home/statistic_2.png';
