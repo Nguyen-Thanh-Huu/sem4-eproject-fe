@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const getAllFaqPairsUrl = 'https://localhost:44302/api/faq';
+const getAllFaqPairsUrl = 'http://localhost:8080/api/v1/faqs';
 
 const initialState = {
   faqPairs: null,
