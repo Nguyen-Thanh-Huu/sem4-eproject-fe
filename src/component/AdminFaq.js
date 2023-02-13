@@ -18,8 +18,8 @@ const AdminFaq = () => {
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = async (values) => {
-    const { question, answer } = values;
+  const handleOnFinishCreate = async () => {
+    const { question, answer } = form.getFieldValue();
     await dispatch(
       createNewFaq({
         question,
@@ -31,9 +31,8 @@ const AdminFaq = () => {
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = async (values) => {
-    const { question, answer } = values;
-
+  const handleOnFinishUpdate = async () => {
+    const { question, answer } = form.getFieldValue();
     await dispatch(
       updateFaq({
         id: selectedRow[0].id,
@@ -143,10 +142,10 @@ const AdminFaq = () => {
                     <Button
                       type="primary"
                       shape="round"
-                      htmlType="submit"
                       block
                       icon={<PlusOutlined />}
                       style={{ width: '7rem' }}
+                      onClick={handleOnFinishCreate}
                     >
                       New
                     </Button>
@@ -172,10 +171,10 @@ const AdminFaq = () => {
                     <Button
                       type="primary"
                       shape="round"
-                      htmlType="submit"
                       block
                       icon={<CarryOutOutlined />}
                       style={{ width: '7rem' }}
+                      onClick={handleOnFinishUpdate}
                     >
                       Update
                     </Button>
