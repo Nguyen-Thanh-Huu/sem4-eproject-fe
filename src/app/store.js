@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import adminCategoryReducer from '../feature/admin_category/AdminCategorySlice';
 import adminContactReducer from '../feature/admin_contact/AdminContactSlice';
 import adminCustomerReviewReducer from '../feature/admin_customerreview/AdminCustomerReviewSlice';
 import adminDomainReducer from '../feature/admin_domain/AdminDomainSlice';
@@ -12,6 +13,7 @@ import adminServiceReducer from '../feature/admin_service/AdminServiceSlice';
 import adminUserReducer from '../feature/admin_user/AdminUserSlice';
 import adminAboutUsReducer from '../feature/AdminAboutUs/AdminAboutUsSlice';
 import cartReducer from '../feature/cart/CartSlice';
+import categoryReducer from '../feature/category/CategorySlice';
 import customerReviewReducer from '../feature/customerreview/CustomerReviewSlice';
 import domainReducer from '../feature/domain/DomainSlice';
 import faqReducer from '../feature/faq/FaqSlice';
@@ -33,6 +35,7 @@ export const store = configureStore({
     adminFaqReducer,
     adminFeedbackReducer,
     domainReducer,
+    categoryReducer,
     serviceReducer,
     productReducer,
     cartReducer,
@@ -47,5 +50,6 @@ export const store = configureStore({
     adminNewsReducer,
     projectReducer,
     feedbackReducer,
+    adminCategoryReducer,
   },
 });

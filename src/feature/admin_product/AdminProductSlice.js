@@ -2,13 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const getAllProductsUrl = 'https://localhost:44302/api/product';
-const createNewProductUrl = 'https://localhost:44302/api/product/createproduct';
-const updateProductUrl = 'https://localhost:44302/api/product/updateproduct';
-const deleteProductUrl = 'https://localhost:44302/api/product/deleteproduct';
+const getAllProductsUrl = 'http://localhost:8080/api/v1/products';
+const createNewProductUrl = 'http://localhost:8080/api/v1/insert-product';
+const updateProductUrl = 'http://localhost:8080/api/v1/update-product';
+const deleteProductUrl = 'http://localhost:8080/api/v1/delete-product';
 
-const getAllDomainsUrl = 'https://localhost:44302/api/domain';
-const getAllServicesUrl = 'https://localhost:44302/api/service';
+const getAllCategoriesUrl = 'http://localhost:8080/api/v1/categories';
 
 const initialState = {
   products: null,
@@ -17,33 +16,22 @@ const initialState = {
   deleteProductStatus: null,
 };
 
-export const getAllProducts = createAsyncThunk('/api/product', async (thunkApi) => {
+export const getAllProducts = createAsyncThunk('/api/v1/products', async (thunkApi) => {
   const response = await axios({
     method: 'get',
     url: getAllProductsUrl,
   });
 
-  const responseDomain = await axios({
+  const responseCategories = await axios({
     method: 'get',
-    url: getAllDomainsUrl,
-  });
-
-  const responseService = await axios({
-    method: 'get',
-    url: getAllServicesUrl,
+    url: getAllCategoriesUrl,
   });
 
   response.data.responseObject.map((item) => (item.key = item.id));
   response.data.responseObject.map((item) => {
-    responseDomain.data.responseObject.map((domain) => {
-      if (domain.id === item.domainid) {
-        item.domain = domain.name;
-      }
-    });
-
-    responseService.data.responseObject.map((service) => {
-      if (service.id === item.serviceid) {
-        item.service = service.name;
+    responseCategories.data.responseObject.map((category) => {
+      if (category.id === item.categoryid) {
+        item.category = category.name;
       }
     });
   });
@@ -52,8 +40,8 @@ export const getAllProducts = createAsyncThunk('/api/product', async (thunkApi) 
 });
 
 export const createNewProduct = createAsyncThunk(
-  '/api/product/createproduct',
-  async ({ name, price, image, description, domainid, serviceid }, thunkApi) => {
+  '/api/v1/insert-product',
+  async ({ name, price, image, description, categoryid, alcohol }, thunkApi) => {
     const response = await axios({
       method: 'post',
       url: createNewProductUrl,
@@ -66,8 +54,9 @@ export const createNewProduct = createAsyncThunk(
         price,
         image,
         description,
-        domainid,
-        serviceid,
+        categoryid,
+        alcohol,
+        deleted: false,
       },
     });
 
@@ -76,10 +65,10 @@ export const createNewProduct = createAsyncThunk(
 );
 
 export const updateProduct = createAsyncThunk(
-  '/api/product/updateproduct',
-  async ({ id, name, price, image, description, domainid, serviceid }, thunkApi) => {
+  '/api/v1/update-product',
+  async ({ id, name, price, image, description, categoryid, alcohol }, thunkApi) => {
     const response = await axios({
-      method: 'post',
+      method: 'put',
       url: updateProductUrl,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -90,8 +79,9 @@ export const updateProduct = createAsyncThunk(
         price,
         image,
         description,
-        domainid,
-        serviceid,
+        categoryid,
+        alcohol,
+        deleted: false,
       },
     });
 
@@ -99,20 +89,30 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
-export const deleteProduct = createAsyncThunk('/api/product/deleteproduct', async ({ id }, thunkApi) => {
-  const response = await axios({
-    method: 'post',
-    url: deleteProductUrl,
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
-    data: {
-      id,
-    },
-  });
+export const deleteProduct = createAsyncThunk(
+  '/api/v1/delete-product',
+  async ({ id, name, price, image, description, categoryid, alcohol }, thunkApi) => {
+    const response = await axios({
+      method: 'delete',
+      url: deleteProductUrl,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      data: {
+        id,
+        name,
+        price,
+        image,
+        description,
+        categoryid,
+        alcohol,
+        deleted: true,
+      },
+    });
 
-  return response.data.status;
-});
+    return response.data.status;
+  }
+);
 
 export const adminProductSlice = createSlice({
   name: 'adminProductSlice',

@@ -1,7 +1,14 @@
 import React from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { CarryOutOutlined, SearchOutlined, UploadOutlined } from '@ant-design/icons';
+import {
+  CarryOutOutlined,
+  ClearOutlined,
+  DeleteOutlined,
+  PlusOutlined,
+  SearchOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Select, Space, Table, Typography, Upload } from 'antd';
 
 import {
@@ -10,8 +17,7 @@ import {
   getAllProducts,
   updateProduct,
 } from '../feature/admin_product/AdminProductSlice';
-import { getAllDomains } from '../feature/domain/DomainSlice';
-import { getAllServices } from '../feature/service/ServiceSlice';
+import { getAllCategories } from '../feature/category/CategorySlice';
 
 const { Title } = Typography;
 
@@ -19,27 +25,27 @@ const AdminProduct = () => {
   const dispatch = useDispatch();
   // Data table
   const data = useSelector((state) => state.adminProductReducer.products);
-  const domains = useSelector((state) => state.domainReducer.domains);
-  const services = useSelector((state) => state.serviceReducer.services);
+  const categories = useSelector((state) => state.categoryReducer.categories);
 
   const [selectedRow, setSelectedRow] = React.useState([]);
 
   React.useEffect(() => {
     dispatch(getAllProducts());
-    dispatch(getAllDomains());
-    dispatch(getAllServices());
+    dispatch(getAllCategories());
   }, []);
 
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = async (values) => {
+  const handleOnFinishCreate = async () => {
+    const values = form.getFieldValue();
+
     values.image = '';
     await values.upload.map(({ originFileObj }) => {
       const reader = new FileReader();
       reader.onload = async function (evt) {
         values.image += evt.target.result;
-        const { name, price, image, description, domainid, serviceid } = values;
+        const { name, price, image, description, categoryid, alcohol } = values;
 
         await dispatch(
           createNewProduct({
@@ -47,13 +53,12 @@ const AdminProduct = () => {
             price,
             image,
             description,
-            domainid,
-            serviceid,
+            categoryid,
+            alcohol,
           })
         );
         await dispatch(getAllProducts());
-        await dispatch(getAllDomains());
-        await dispatch(getAllServices());
+        await dispatch(getAllCategories());
 
         form.resetFields();
       };
@@ -61,15 +66,16 @@ const AdminProduct = () => {
     });
   };
 
-  const handleOnFinishUpdate = async (values) => {
-    values.images = '';
+  const handleOnFinishUpdate = async () => {
+    const values = form.getFieldValue();
+    values.image = '';
 
     if (values.upload) {
       await values.upload.map(({ originFileObj }) => {
         const reader = new FileReader();
         reader.onload = async function (evt) {
-          values.images += evt.target.result;
-          const { name, price, image, description, domainid, serviceid } = values;
+          values.image += evt.target.result;
+          const { name, price, image, description, categoryid, alcohol } = values;
 
           await dispatch(
             updateProduct({
@@ -78,20 +84,19 @@ const AdminProduct = () => {
               price,
               image,
               description,
-              domainid,
-              serviceid,
+              categoryid,
+              alcohol,
             })
           );
           await dispatch(getAllProducts());
-          await dispatch(getAllDomains());
-          await dispatch(getAllServices());
+          await dispatch(getAllCategories());
 
           form.resetFields();
         };
         reader.readAsDataURL(originFileObj);
       });
     } else {
-      const { name, price, image, description, domainid, serviceid } = values;
+      const { name, price, image, description, categoryid, alcohol } = values;
 
       await dispatch(
         updateProduct({
@@ -100,13 +105,12 @@ const AdminProduct = () => {
           price,
           image,
           description,
-          domainid,
-          serviceid,
+          categoryid,
+          alcohol,
         })
       );
       await dispatch(getAllProducts());
-      await dispatch(getAllDomains());
-      await dispatch(getAllServices());
+      await dispatch(getAllCategories());
 
       setSelectedRow([]);
       form.resetFields();
@@ -114,12 +118,16 @@ const AdminProduct = () => {
   };
 
   const handleDeleteProduct = async () => {
-    await dispatch(deleteProduct({ id: selectedRow[0].id }));
+    const { id, name, price, image, description, categoryid, alcohol } = selectedRow[0];
+    await dispatch(deleteProduct({ id, name, price, image, description, categoryid, alcohol }));
     await dispatch(getAllProducts());
-    await dispatch(getAllDomains());
-    await dispatch(getAllServices());
+    await dispatch(getAllCategories());
 
     setSelectedRow([]);
+    form.resetFields();
+  };
+
+  const handleClearForm = () => {
     form.resetFields();
   };
 
@@ -249,23 +257,23 @@ const AdminProduct = () => {
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Domain',
-      dataIndex: 'domain',
-      sorter: (a, b) => a.domain.localeCompare(b.domain),
+      title: 'Category',
+      dataIndex: 'category',
+      sorter: (a, b) => a.category.localeCompare(b.category),
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Service',
-      dataIndex: 'service',
-      sorter: (a, b) => a.service.localeCompare(b.service),
+      title: 'Alcohol',
+      dataIndex: 'alcohol',
+      sorter: (a, b) => a.alcohol.localeCompare(b.alcohol),
       sortDirections: ['descend', 'ascend'],
     },
   ];
 
   const onSelectChange = (key, newSelectedRow) => {
     setSelectedRow(newSelectedRow);
-    const { name, price, image, description, domainid, serviceid } = newSelectedRow[0];
-    form.setFieldsValue({ name, price, image, description, domainid, serviceid });
+    const { name, price, image, description, categoryid, alcohol } = newSelectedRow[0];
+    form.setFieldsValue({ name, price, image, description, categoryid, alcohol });
   };
 
   const rowSelection = {
@@ -340,15 +348,15 @@ const AdminProduct = () => {
               </Form.Item>
 
               <Form.Item
-                label="Select Domain"
-                name="domainid"
+                label="Select Category"
+                name="categoryid"
                 rules={[{ required: true, message: 'Please select product domain!' }]}
               >
                 <Select>
-                  {domains
-                    ? domains.map((domain) => (
-                        <Select.Option value={domain.id} key={domain.id}>
-                          {domain.name}
+                  {categories
+                    ? categories.map((category) => (
+                        <Select.Option value={category.id} key={category.id}>
+                          {category.name}
                         </Select.Option>
                       ))
                     : null}
@@ -356,19 +364,11 @@ const AdminProduct = () => {
               </Form.Item>
 
               <Form.Item
-                label="Select Service"
-                name="serviceid"
-                rules={[{ required: true, message: 'Please select product service!' }]}
+                label="Alcohol"
+                name="alcohol"
+                rules={[{ required: true, message: 'Please input alcohol level!' }]}
               >
-                <Select>
-                  {services
-                    ? services.map((service) => (
-                        <Select.Option value={service.id} key={service.id}>
-                          {service.name}
-                        </Select.Option>
-                      ))
-                    : null}
-                </Select>
+                <Input />
               </Form.Item>
 
               <Form.Item name="upload" label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
@@ -377,10 +377,46 @@ const AdminProduct = () => {
                 </Upload>
               </Form.Item>
 
-              {selectedRow.length > 0 ? (
+              <Col>
                 <Row justify="space-evenly">
                   <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
-                    <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
+                    <Button
+                      type="primary"
+                      shape="round"
+                      block
+                      icon={<PlusOutlined />}
+                      style={{ width: '7rem' }}
+                      onClick={handleOnFinishCreate}
+                    >
+                      New
+                    </Button>
+                  </Form.Item>
+
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      danger
+                      type="primary"
+                      shape="round"
+                      htmlType="button"
+                      block
+                      icon={<ClearOutlined />}
+                      onClick={handleClearForm}
+                      style={{ width: '7rem' }}
+                    >
+                      Clear
+                    </Button>
+                  </Form.Item>
+                </Row>
+                <Row justify="space-evenly">
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      type="primary"
+                      shape="round"
+                      block
+                      icon={<CarryOutOutlined />}
+                      style={{ width: '7rem' }}
+                      onClick={handleOnFinishUpdate}
+                    >
                       Update
                     </Button>
                   </Form.Item>
@@ -392,20 +428,15 @@ const AdminProduct = () => {
                       shape="round"
                       htmlType="button"
                       block
-                      icon={<CarryOutOutlined />}
+                      icon={<DeleteOutlined />}
                       onClick={handleDeleteProduct}
+                      style={{ width: '7rem' }}
                     >
                       Delete
                     </Button>
                   </Form.Item>
                 </Row>
-              ) : (
-                <Form.Item wrapperCol={{ span: 22, offset: 0 }}>
-                  <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
-                    Create Product
-                  </Button>
-                </Form.Item>
-              )}
+              </Col>
             </Form>
           </Col>
         </Row>

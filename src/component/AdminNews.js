@@ -46,13 +46,13 @@ const AdminNews = () => {
 
   const handleOnFinishUpdate = async () => {
     const values = form.getFieldValue();
-    values.images = '';
+    values.image = '';
 
     if (values.upload) {
       await values.upload.map(({ originFileObj }) => {
         const reader = new FileReader();
         reader.onload = async function (evt) {
-          values.images += evt.target.result;
+          values.image += evt.target.result;
           const { image, content, title } = values;
 
           await dispatch(

@@ -7,6 +7,7 @@ import ProjectDetail from '../sub-component/ProjectDetail';
 
 import AboutUsPage from './AboutUsPage';
 import AdminAboutUs from './AdminAboutUs';
+import AdminCategory from './AdminCategory';
 import AdminContact from './AdminContact';
 import AdminCustomerReview from './AdminCustomerReview';
 import AdminDomain from './AdminDomain';
@@ -67,8 +68,6 @@ const AppContainer = () => {
                 <Route path="user" element={<AdminUser />} />
                 <Route path="faq" element={<AdminFaq />} />
                 <Route path="feedback" element={<AdminFeedback />} />
-                <Route path="news" element={<AdminNews />} />
-                <Route path="contact" element={<AdminContact />} />
               </Route>
 
               <Route path="product" element={<ProductPage />}>

@@ -196,36 +196,6 @@ const AdminFaq = () => {
                   </Form.Item>
                 </Row>
               </Col>
-
-              {/* {selectedRow.length > 0 ? (
-                <Row justify="space-evenly">
-                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
-                    <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
-                      Update
-                    </Button>
-                  </Form.Item>
-
-                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
-                    <Button
-                      danger
-                      type="primary"
-                      shape="round"
-                      htmlType="button"
-                      block
-                      icon={<CarryOutOutlined />}
-                      onClick={handleDeleteFaq}
-                    >
-                      Delete
-                    </Button>
-                  </Form.Item>
-                </Row>
-              ) : (
-                <Form.Item wrapperCol={{ span: 22, offset: 0 }}>
-                  <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
-                    Create Faq
-                  </Button>
-                </Form.Item>
-              )} */}
             </Form>
           </Col>
         </Row>
