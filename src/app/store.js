@@ -4,6 +4,7 @@ import adminCustomerReviewReducer from '../feature/admin_customerreview/AdminCus
 import adminDomainReducer from '../feature/admin_domain/AdminDomainSlice';
 import adminFaqReducer from '../feature/admin_faq/AdminFaqSlice';
 import adminFeedbackReducer from '../feature/admin_feedback/AdminFeedbackSlice';
+import adminNewsReducer from '../feature/admin_news/AdminNewsSlice';
 import adminProductReducer from '../feature/admin_product/AdminProductSlice';
 import adminProjectReducer from '../feature/admin_project/AdminProjectSlice';
 import adminServiceReducer from '../feature/admin_service/AdminServiceSlice';
@@ -43,6 +44,7 @@ export const store = configureStore({
     adminAboutUsReducer,
     adminDomainReducer,
     adminServiceReducer,
+    adminNewsReducer,
     projectReducer,
     feedbackReducer,
   },

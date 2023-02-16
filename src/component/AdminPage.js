@@ -28,6 +28,7 @@ const adminMenu = [
   { label: <Link to="/admin/service">Service</Link>, key: 'service', icon: <AppstoreOutlined /> },
   { label: <Link to="/admin/faq">Faq</Link>, key: 'faq', icon: <CommentOutlined /> },
   { label: <Link to="/admin/feedback">Feedback</Link>, key: 'feedback', icon: <StarOutlined /> },
+  { label: <Link to="/admin/news">News</Link>, key: 'news', icon: <StarOutlined /> },
 ];
 
 const AdminPage = () => {

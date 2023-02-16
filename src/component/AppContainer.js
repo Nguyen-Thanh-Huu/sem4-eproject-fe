@@ -14,6 +14,7 @@ import AdminFaq from './AdminFaq';
 import AdminFeedback from './AdminFeedback';
 import AdminHome from './AdminHome';
 import AdminInvoiceManagement from './AdminInvoiceManagement';
+import AdminNews from './AdminNews';
 import AdminPage from './AdminPage';
 import AdminProduct from './AdminProduct';
 import AdminProject from './AdminProject';
@@ -67,6 +68,7 @@ const AppContainer = () => {
                 <Route path="user" element={<AdminUser />} />
                 <Route path="faq" element={<AdminFaq />} />
                 <Route path="feedback" element={<AdminFeedback />} />
+                <Route path="news" element={<AdminNews />} />
               </Route>
 
               <Route path="product" element={<ProductPage />}>
