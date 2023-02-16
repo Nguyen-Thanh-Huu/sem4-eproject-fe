@@ -11,5 +11,13 @@
 }
 
 .space {
-  height: 100px;
+  height: 50px;
+}
+
+.contentStyle {
+  height: 400px;
+  color: #fff;
+  line-height: 160px;
+  text-align: center;
+  background: #364d79;
 }

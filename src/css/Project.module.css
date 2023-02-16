@@ -1,6 +1,11 @@
 
 /* css upcoming  */
 
+.img_item1 {
+  width: 400px;
+  height: 400px;
+}
+
 .project_released {
   height: 400px;
   background: rgb(253, 250, 250);

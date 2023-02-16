@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { FieldTimeOutlined } from '@ant-design/icons';
 import { Button, Card, Carousel, Col, Image, Row, Typography } from 'antd';
 
 import { getAllProjects } from '../feature/project/ProjectSlice';
@@ -22,7 +23,7 @@ function ProjectPage() {
 
   return (
     <Col style={{ margin: 'auto', width: '80%', marginBottom: '8rem' }}>
-      <Row justify="center" style={{ marginTop: '4rem', marginBottom: '2rem' }}>
+      <Row justify="start" style={{ marginTop: '2rem', marginBottom: '0rem' }}>
         <Col>
           <Title
             style={{
@@ -30,154 +31,370 @@ function ProjectPage() {
               fontSize: '4rem',
               fontWeight: 'bolder',
               textAlign: 'left',
-              textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
+              textShadow: '5px 5px 0px rgba(131,165,152,0.7)',
             }}
           >
-            Coming Projects
+            News
           </Title>
         </Col>
       </Row>
-      <Row className={styles.carousel_project_released} justify="center" align="middle">
-        <Col span={12}>
-          <Carousel autoplay>
-            {storedProjects
-              .filter((item) => item.status === 'upcoming')
-              .map((project, index) => (
-                <div key={index} style={{ background: 'white' }}>
-                  <Card className={styles.upcoming_card_item}>
-                    <Row className={styles.upcoming_content_card}>
-                      <Col span={12} className={styles.upcoming_img}>
-                        <Image className={styles.upcoming_img_item} src={project.image} />
-                      </Col>
-                      <Col span={12} className={styles.upcoming_content}>
-                        <h2>{project.name}</h2>
-                        <p>{project.description}</p>
-                        {/* <Button type="primary">
-                          <Link to={`projectDetail/id?id=${project.id}`}> Detail </Link>
-                        </Button> */}
-                      </Col>
-                    </Row>
+      <Row>
+        <Col span={16}>
+          <Row>
+            <Col span={12}>
+              <div style={{ height: '280px' }}>
+                <Image
+                  width={400}
+                  src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                />
+              </div>
+            </Col>
+            <Col span={12}>
+              <Card
+                bordered={false}
+                style={{
+                  width: 400,
+                  height: 280,
+                }}
+              >
+                <a
+                  href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
+                  style={{
+                    color: 'black',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    display: 'block',
+                    marginBottom: '0.2rem',
+                    marginTop: '-0.9rem',
+                  }}
+                >
+                  Can diabetics drink wine?
+                </a>
+                <div style={{ marginBottom: '0.3rem' }}>
+                  <FieldTimeOutlined /> <span> 04/10/2023 </span>
+                </div>
+                <p>
+                  Alcohol is relatively high in calories, with no nutritional value. In a 148 ml glass of red wine there
+                  are about 128 calories. If drinking too much (several glasses of wine a day) increases calorie intake,
+                  there is the potential for weight gain.
+                </p>
+              </Card>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={8}>
+          <Row>
+            <Col span={12}>
+              <div>
+                <Image
+                  width={200}
+                  src="https://i0.wp.com/salt.tikicdn.com/cache/200x280/ts/product/45/67/ea/4f69e969378876b0daf83d84b13bf878.jpg"
+                />
+              </div>
+            </Col>
+            <Col span={12}>
+              <Card
+                bordered={false}
+                style={{
+                  width: 200,
+                  height: 280,
+                }}
+              >
+                <a
+                  href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
+                  style={{
+                    color: 'black',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    display: 'block',
+                    marginBottom: '0.2rem',
+                    marginTop: '-0.9rem',
+                  }}
+                >
+                  The secret to making wine a meaningful gift during Tet
+                </a>
+                <div style={{ marginBottom: '0.3rem' }}>
+                  <FieldTimeOutlined /> <span> 05/11/2023 </span>
+                </div>
+                <p>Ripe grapes naturally contain sugar, so during fermentation it is converted into alcohol.</p>
+              </Card>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
+      {/* list news */}
+
+      <Row justify="center" style={{ marginTop: '1rem', marginBottom: '2rem' }}>
+        <Col span={18}>
+          <Row>
+            <Col span={24}>
+              <Row style={{ marginBottom: '0.1rem' }}>
+                <Col span={4}>
+                  <div style={{ width: '200px', height: '150px' }}>
+                    <Image
+                      width={150}
+                      src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                    />
+                  </div>
+                </Col>
+                <Col span={20}>
+                  <Card
+                    bordered={false}
+                    style={{
+                      width: 750,
+                      height: 150,
+                    }}
+                  >
+                    <a
+                      href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
+                      style={{
+                        color: 'black',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        display: 'block',
+                        marginBottom: '0.2rem',
+                        marginTop: '-0.9rem',
+                      }}
+                    >
+                      Making wine from the vineyard on the old castle terrace
+                    </a>
+                    <div style={{ marginBottom: '0.3rem' }}>
+                      <FieldTimeOutlined /> <span> 06/05/2023 </span>
+                    </div>
+                    <p>
+                      Writer Ernest Hemingway once said, Wine is the most civilized thing in the world and offers a
+                      degree of enjoyment greater than anything we can buy in the world.
+                    </p>
                   </Card>
-                </div>
-              ))}
-          </Carousel>
-        </Col>
-        <Col span={12}>
-          <img
-            style={{
-              width: '80%',
-              boxShadow: '10px 10px 0px rgba(131,165,152,0.7)',
-              borderStyle: 'solid',
-              borderWidth: '1px',
-              borderColor: 'rgba(131,165,152,0.7)',
-              marginLeft: '1rem',
-            }}
-            src={comingProjectSideImage}
-          />
-        </Col>
-      </Row>
-
-      {/* project ongoing */}
-
-      <Row justify="center" style={{ marginTop: '4rem', marginBottom: '2rem' }}>
-        <Col>
-          <Title
-            style={{
-              color: '#076678',
-              fontSize: '4rem',
-              fontWeight: 'bolder',
-              textAlign: 'left',
-              textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
-            }}
-          >
-            Ongoing Projects
-          </Title>
-        </Col>
-      </Row>
-      <Row justify="center" align="middle">
-        <Col span={12}>
-          <img
-            style={{
-              width: '80%',
-              boxShadow: '10px 10px 0px rgba(131,165,152,0.7)',
-              borderStyle: 'solid',
-              borderWidth: '1px',
-              borderColor: 'rgba(131,165,152,0.7)',
-              marginLeft: '1rem',
-            }}
-            src={goingProjectSideImage}
-          />
-        </Col>
-        <Col span={12}>
-          <Carousel autoplay>
-            {storedProjects
-              .filter((item) => item.status === 'going')
-              .map((project, index) => (
-                <div key={index} style={{ background: 'white' }}>
-                  <Card className={styles.card}>
-                    <Image className={styles.ongoing_image_card} src={project.image} />
-                    <h2>{project.name} </h2>
-                    <p>{project.description}</p>
-                    {/* <Button type="primary"> Detail</Button> */}
+                </Col>
+              </Row>
+            </Col>
+            <Col span={24}>
+              <Row style={{ marginBottom: '0.1rem' }}>
+                <Col span={4}>
+                  <div style={{ width: '200px', height: '150px' }}>
+                    <Image
+                      width={150}
+                      src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                    />
+                  </div>
+                </Col>
+                <Col span={20}>
+                  <Card
+                    bordered={false}
+                    style={{
+                      width: 750,
+                      height: 150,
+                    }}
+                  >
+                    <a
+                      href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
+                      style={{
+                        color: 'black',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        display: 'block',
+                        marginBottom: '0.2rem',
+                        marginTop: '-0.9rem',
+                      }}
+                    >
+                      Red wine can relieve respiratory disease
+                    </a>
+                    <div style={{ marginBottom: '0.3rem' }}>
+                      <FieldTimeOutlined /> <span> 23/03/2023 </span>
+                    </div>
+                    <p>
+                      Wine is used a lot in Europe and America and is becoming more and more familiar to Vietnamese
+                      people, becoming an indispensable drink in many important events and festivals. Wine is also a
+                      gift that more and more people as well as businesses choose to give partners and VIP customers
+                      during Tet.
+                    </p>
                   </Card>
-                </div>
-              ))}
-          </Carousel>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={24}>
+              <Row style={{ marginBottom: '0.1rem' }}>
+                <Col span={4}>
+                  <div style={{ width: '200px', height: '150px' }}>
+                    <Image
+                      width={150}
+                      src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                    />
+                  </div>
+                </Col>
+                <Col span={20}>
+                  <Card
+                    bordered={false}
+                    style={{
+                      width: 750,
+                      height: 150,
+                    }}
+                  >
+                    <a
+                      href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
+                      style={{
+                        color: 'black',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        display: 'block',
+                        marginBottom: '0.2rem',
+                        marginTop: '-0.9rem',
+                      }}
+                    >
+                      Crystal glasses increase the level of wine experience
+                    </a>
+                    <div style={{ marginBottom: '0.3rem' }}>
+                      <FieldTimeOutlined /> <span> 11/08/2023 </span>
+                    </div>
+                    <p>
+                      Giving Tet gifts is an art in communication, so when giving wine, the selection of gift boxes is
+                      of special interest to many people. On the market today there are many models of wine gift boxes
+                      to meet a variety of budget requirements as well as tastes.
+                    </p>
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={24}>
+              <Row style={{ marginBottom: '0.1rem' }}>
+                <Col span={4}>
+                  <div style={{ width: '200px', height: '150px' }}>
+                    <Image
+                      width={150}
+                      src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                    />
+                  </div>
+                </Col>
+                <Col span={20}>
+                  <Card
+                    bordered={false}
+                    style={{
+                      width: 750,
+                      height: 150,
+                    }}
+                  >
+                    <a
+                      href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
+                      style={{
+                        color: 'black',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        display: 'block',
+                        marginBottom: '0.2rem',
+                        marginTop: '-0.9rem',
+                      }}
+                    >
+                      A 1,700-year-old bottle of wine can still be drinkable
+                    </a>
+                    <div style={{ marginBottom: '0.3rem' }}>
+                      <FieldTimeOutlined /> <span> 08/02/2023 </span>
+                    </div>
+                    <p>
+                      It can be classic, sophisticated and luxurious wooden box models; are leather boxes with luxury -
+                      class style; or lacquer box exudes aristocracy, mystery, increasing the class of the gift.
+                    </p>
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={24}>
+              <Row style={{ marginBottom: '0.1rem' }}>
+                <Col span={4}>
+                  <div style={{ width: '200px', height: '150px' }}>
+                    <Image
+                      width={150}
+                      src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                    />
+                  </div>
+                </Col>
+                <Col span={20}>
+                  <Card
+                    bordered={false}
+                    style={{
+                      width: 750,
+                      height: 150,
+                    }}
+                  >
+                    <a
+                      href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
+                      style={{
+                        color: 'black',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        display: 'block',
+                        marginBottom: '0.2rem',
+                        marginTop: '-0.9rem',
+                      }}
+                    >
+                      Red wine can relieve respiratory disease
+                    </a>
+                    <div style={{ marginBottom: '0.3rem' }}>
+                      <FieldTimeOutlined /> <span> 04/10/2023 </span>
+                    </div>
+                    <p>
+                      Many stores also support customers to engrave business logos or wishes on request - adding to the
+                      thoughtfulness and sophistication, making the gift recipient feel like he has been given a gift of
+                      his own design.
+                    </p>
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Col>
-      </Row>
-
-      {/* project finish */}
-
-      <Row justify="center" style={{ marginTop: '4rem', marginBottom: '2rem' }}>
-        <Col>
-          <Title
-            style={{
-              color: '#076678',
-              fontSize: '4rem',
-              fontWeight: 'bolder',
-              textAlign: 'left',
-              textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
-            }}
-          >
-            Completed Projects
-          </Title>
-        </Col>
-      </Row>
-      <Row justify="center" align="middle">
-        <Col span={12}>
-          <Carousel autoplay>
-            {storedProjects
-              .filter((item) => item.status === 'finish')
-              .map((project, index) => (
-                <div key={index} style={{ background: 'white' }}>
-                  <Row justify="end">
-                    <Card className={styles.card}>
-                      <div>
-                        <Image className={styles.ongoing_image_card} src={project.image} />
-                      </div>
-                      <div className={styles.card_content}>
-                        <h2>{project.name} </h2>
-                        <p>{project.description}</p>
-                        {/* <Button type="primary"> Detail</Button> */}
-                      </div>
-                    </Card>
-                  </Row>
-                </div>
-              ))}
-          </Carousel>
-        </Col>
-        <Col span={12}>
-          <img
-            src={finishProjectSideImage}
-            style={{
-              width: '80%',
-              boxShadow: '10px 10px 0px rgba(131,165,152,0.7)',
-              borderStyle: 'solid',
-              borderWidth: '1px',
-              borderColor: 'rgba(131,165,152,0.7)',
-              marginLeft: '1rem',
-            }}
-          />
+        <Col span={6}>
+          <Row>
+            <Col>
+              <div style={{ width: '300px', height: '150px' }}>
+                <Image
+                  width={250}
+                  src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div style={{ width: '300px', height: '150px' }}>
+                <Image
+                  width={250}
+                  src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div style={{ width: '300px', height: '150px' }}>
+                <Image
+                  width={250}
+                  src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div style={{ width: '300px', height: '150px' }}>
+                <Image
+                  width={250}
+                  src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div style={{ width: '300px', height: '150px' }}>
+                <Image
+                  width={250}
+                  src="https://tptwinehouse.com/wp-content/uploads/2020/11/ruou-vang-y-vung-Veneto-2.jpg"
+                />
+              </div>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Col>
