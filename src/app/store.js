@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import adminContactReducer from '../feature/admin_contact/AdminContactSlice';
 import adminCustomerReviewReducer from '../feature/admin_customerreview/AdminCustomerReviewSlice';
 import adminDomainReducer from '../feature/admin_domain/AdminDomainSlice';
 import adminFaqReducer from '../feature/admin_faq/AdminFaqSlice';
@@ -10,7 +11,6 @@ import adminProjectReducer from '../feature/admin_project/AdminProjectSlice';
 import adminServiceReducer from '../feature/admin_service/AdminServiceSlice';
 import adminUserReducer from '../feature/admin_user/AdminUserSlice';
 import adminAboutUsReducer from '../feature/AdminAboutUs/AdminAboutUsSlice';
-import adminContactInfoReducer from '../feature/AdminContactInfo/AdminContactInfoSlice';
 import cartReducer from '../feature/cart/CartSlice';
 import customerReviewReducer from '../feature/customerreview/CustomerReviewSlice';
 import domainReducer from '../feature/domain/DomainSlice';
@@ -40,7 +40,7 @@ export const store = configureStore({
     invoiceitemReducer,
     customerReviewReducer,
     adminCustomerReviewReducer,
-    adminContactInfoReducer,
+    adminContactReducer,
     adminAboutUsReducer,
     adminDomainReducer,
     adminServiceReducer,

@@ -12,16 +12,16 @@ import {
 } from '@ant-design/icons';
 import { Col, Row, Spin, Typography } from 'antd';
 
-import { getAllContactInfos } from '../feature/AdminContactInfo/AdminContactInfoSlice';
+import { getAllContacts } from '../feature/admin_contact/AdminContactSlice';
 import logoImage from '../images/logo.png';
 
 import styles from '../css/Footer.module.css';
 const { Title } = Typography;
 const Footer = () => {
   const dispatch = useDispatch();
-  const contactPairs = useSelector((state) => state.adminContactInfoReducer.contactInfo);
+  const contactPairs = useSelector((state) => state.adminContactReducer.contact);
   React.useEffect(() => {
-    dispatch(getAllContactInfos());
+    dispatch(getAllContacts());
   }, []);
 
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const Footer = () => {
                 <p className={styles.footerContent}>
                   <MailOutlined style={{ fontSize: '15px', color: '#FFFFFF' }} /> {pair.email}
                 </p>
-                <p className={styles.footerContent}>{pair.address + ', ' + pair.ward}</p>
+                <p className={styles.footerContent}>{pair.address + ', ' + pair.district}</p>
                 <p className={styles.footerContent}>{pair.city}</p>
               </div>
             ))

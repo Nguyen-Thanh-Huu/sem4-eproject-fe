@@ -7,7 +7,7 @@ import ProjectDetail from '../sub-component/ProjectDetail';
 
 import AboutUsPage from './AboutUsPage';
 import AdminAboutUs from './AdminAboutUs';
-import AdminContactInfo from './AdminContactInfo';
+import AdminContact from './AdminContact';
 import AdminCustomerReview from './AdminCustomerReview';
 import AdminDomain from './AdminDomain';
 import AdminFaq from './AdminFaq';
@@ -61,7 +61,6 @@ const AppContainer = () => {
                 <Route path="product" element={<AdminProduct />} />
                 <Route path="invoice" element={<AdminInvoiceManagement />} />
                 <Route path="customerreview" element={<AdminCustomerReview />} />
-                <Route path="contactinfo" element={<AdminContactInfo />} />
                 <Route path="aboutu" element={<AdminAboutUs />} />
                 <Route path="domain" element={<AdminDomain />} />
                 <Route path="service" element={<AdminService />} />
@@ -69,6 +68,7 @@ const AppContainer = () => {
                 <Route path="faq" element={<AdminFaq />} />
                 <Route path="feedback" element={<AdminFeedback />} />
                 <Route path="news" element={<AdminNews />} />
+                <Route path="contact" element={<AdminContact />} />
               </Route>
 
               <Route path="product" element={<ProductPage />}>

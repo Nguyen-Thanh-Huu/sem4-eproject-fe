@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BankOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import { Carousel, Col, Row, Spin, Typography } from 'antd';
 
+import { getAllContacts } from '../feature/admin_contact/AdminContactSlice';
 import { getAllAboutUs } from '../feature/AdminAboutUs/AdminAboutUsSlice';
-import { getAllContactInfos } from '../feature/AdminContactInfo/AdminContactInfoSlice';
 import contactUsImage from '../images/aboutus/contactus.png';
 import aboutUsImage from '../images/aboutus/mission.jpg';
 import whoWeAreImage from '../images/aboutus/whoweare.jpg';
@@ -14,14 +14,14 @@ const { Title } = Typography;
 const AboutUsPage = () => {
   const dispatch = useDispatch();
   const aboutUsPairs = useSelector((state) => state.adminAboutUsReducer.aboutUs);
-  const contactPairs = useSelector((state) => state.adminContactInfoReducer.contactInfo);
+  const contactPairs = useSelector((state) => state.adminContactReducer.contact);
 
   React.useEffect(() => {
     dispatch(getAllAboutUs());
   }, []);
 
   React.useEffect(() => {
-    dispatch(getAllContactInfos());
+    dispatch(getAllContacts());
   }, []);
 
   return (
@@ -128,7 +128,7 @@ const AboutUsPage = () => {
                     </Col>
                     <Col span={22}>
                       <Title level={4} style={{ color: '#076678' }}>
-                        {pair.address + ', ' + pair.ward + ', ' + pair.city}{' '}
+                        {pair.address + ', ' + pair.district + ', ' + pair.city}{' '}
                       </Title>
                     </Col>
                   </Row>
