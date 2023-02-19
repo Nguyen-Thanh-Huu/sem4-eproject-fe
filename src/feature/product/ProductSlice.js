@@ -2,21 +2,37 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const getAllProductsUrl = 'https://localhost:44302/api/product';
+const getAllProductsUrl = 'http://localhost:8080/api/v1/products';
 const getProductByIdUrl = 'https://localhost:44302/api/product/';
 const getProductByNameUrl = 'https://localhost:44302/api/product/searchbyname';
 const filterProductByDomainUrl = 'https://localhost:44302/api/product/filterbydomainid';
 const filterProductByServiceUrl = 'https://localhost:44302/api/product/filterbyserviceid';
+
+const getAllCategoriesUrl = 'http://localhost:8080/api/v1/categories';
 
 const initialState = {
   products: null,
   productDetail: null,
 };
 
-export const getAllProducts = createAsyncThunk('/api/product', async (thunkApi) => {
+export const getAllProducts = createAsyncThunk('/api/v1/products', async (thunkApi) => {
   const response = await axios({
     method: 'get',
     url: getAllProductsUrl,
+  });
+
+  const responseCategories = await axios({
+    method: 'get',
+    url: getAllCategoriesUrl,
+  });
+
+  response.data.responseObject.map((item) => (item.key = item.id));
+  response.data.responseObject.map((item) => {
+    responseCategories.data.responseObject.map((category) => {
+      if (category.id === item.categoryid) {
+        item.category = category.name;
+      }
+    });
   });
 
   return response.data.responseObject;

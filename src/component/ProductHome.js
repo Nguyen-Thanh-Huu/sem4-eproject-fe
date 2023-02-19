@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, Col, Image, Input, Row, Select, Spin, Typography } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Col, Divider, Image, Input, Pagination, Row, Select, Spin, Typography } from 'antd';
 
 import { getAllProducts } from '../feature/admin_product/AdminProductSlice';
 import { addToCart } from '../feature/cart/CartSlice';
@@ -47,83 +48,142 @@ const ProductHome = () => {
   };
 
   return (
-    <Col>
-      <Row justify="center" style={{ marginTop: '4rem' }} gutter={16}>
-        <Col span={12}>
-          <Search
-            placeholder="Enter Product Name..."
-            allowClear
-            enterButton="Search"
-            size="large"
-            onSearch={handleSearch}
-          />
-        </Col>
-        <Col span={4}>
-          <Select placeholder="Filter by Domain" onChange={handleFilterByDomain} style={{ width: '100%' }} size="large">
-            {domains
-              ? domains.map((domain) => (
-                  <Option key={domain.id} value={domain.id}>
-                    {domain.name}
-                  </Option>
-                ))
-              : null}
-          </Select>
-        </Col>
-        <Col span={4}>
-          <Select
-            placeholder="Filter by Service"
-            onChange={handleFilterByService}
-            style={{ width: '100%' }}
-            size="large"
-          >
-            {services
-              ? services.map((service) => (
-                  <Option key={service.id} value={service.id}>
-                    {service.name}
-                  </Option>
-                ))
-              : null}
-          </Select>
-        </Col>
-      </Row>
-      <Row gutter={16} style={{ marginTop: 40, marginBottom: 40 }}>
-        {products ? (
-          products.map((product) => (
-            <Col
-              span={7}
-              key={product.id}
-              style={{ margin: 16, padding: 8, boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px', borderRadius: 8 }}
+    <div style={{ backgroundColor: '#faf1e2' }}>
+      <Col span={24}>
+        <Row align="middle" style={{ paddingTop: '3rem', paddingLeft: '5rem' }}>
+          <Col span={4}>
+            <Title>WINE TIME</Title>
+          </Col>
+          <Col span={20}>
+            <Breadcrumb>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <a href="">Products</a>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>Category</Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+        </Row>
+
+        <Row justify="center" gutter={16}>
+          <Col span={12}>
+            <Search
+              placeholder="Enter Product Name..."
+              allowClear
+              enterButton="Search"
+              size="large"
+              onSearch={handleSearch}
+            />
+          </Col>
+          <Col span={4}>
+            <Select
+              placeholder="Filter by Domain"
+              onChange={handleFilterByDomain}
+              style={{ width: '100%' }}
+              size="large"
             >
-              <Image width={'100%'} src={product.image} />
-              <Title level={3} style={{ color: '#076678', marginTop: 16 }}>
-                {product.name}
-              </Title>
-              <Title level={4} style={{ color: '#D65D0E' }}>
-                Price: {product.price} USD
-              </Title>
-              <Row justify="space-evenly" style={{ marginTop: 16, marginBottom: 16 }}>
-                <Col span={16}>
-                  <Button block type="primary" shape="round" onClick={() => navigate(product.id)}>
-                    Details
-                  </Button>
-                </Col>
-              </Row>
-              <Row justify="space-evenly" style={{ marginBottom: 16 }}>
-                <Col span={16}>
-                  <Button block type="primary" shape="round" onClick={() => handleAddToCartClick(product)}>
-                    Add to Cart
-                  </Button>
-                </Col>
-              </Row>
-            </Col>
-          ))
-        ) : (
-          <Row justify="center">
-            <Spin size="large" />
-          </Row>
-        )}
-      </Row>
-    </Col>
+              {domains
+                ? domains.map((domain) => (
+                    <Option key={domain.id} value={domain.id}>
+                      {domain.name}
+                    </Option>
+                  ))
+                : null}
+            </Select>
+          </Col>
+          <Col span={4}>
+            <Select
+              placeholder="Filter by Service"
+              onChange={handleFilterByService}
+              style={{ width: '100%' }}
+              size="large"
+            >
+              {services
+                ? services.map((service) => (
+                    <Option key={service.id} value={service.id}>
+                      {service.name}
+                    </Option>
+                  ))
+                : null}
+            </Select>
+          </Col>
+        </Row>
+        <Row gutter={16} style={{ marginTop: 40, marginBottom: 40 }}>
+          <Col span={6}></Col>
+          <Col span={18}>
+            <Row align="middle">
+              {products ? (
+                products.map((product) => (
+                  <Col
+                    align="middle"
+                    span={7}
+                    key={product.id}
+                    style={{
+                      margin: 16,
+                      padding: 8,
+                      borderRadius: 10,
+                      backgroundColor: 'white',
+                    }}
+                  >
+                    <div style={{ minHeight: '100px' }}>
+                      <Title level={3} style={{ color: '#023a21', marginTop: 16 }}>
+                        {product.name}
+                      </Title>
+                    </div>
+
+                    <Image height="340px" width="150px" src={product.image} />
+
+                    <Row justify="space-evenly" style={{ marginTop: 16, marginBottom: 16 }}>
+                      <Col span={16}>
+                        <a
+                          onClick={() => navigate(product.id)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: '#d06539' }}
+                        >
+                          Click to view Details
+                        </a>
+                      </Col>
+                    </Row>
+                    <Divider />
+                    <Row style={{ marginBottom: 16 }}>
+                      <Col span={14}>
+                        <Title level={4} style={{ color: '#D65D0E' }}>
+                          {product.price} USD
+                        </Title>
+                      </Col>
+                      <Col span={10}>
+                        <Button
+                          block
+                          type="primary"
+                          shape="round"
+                          style={{ background: '#d06539', borderColor: '#d06539' }}
+                          onClick={() => handleAddToCartClick(product)}
+                        >
+                          Add to Cart
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                ))
+              ) : (
+                <Row justify="center">
+                  <Spin size="large" />
+                </Row>
+              )}
+            </Row>
+            <div align="middle" style={{ marginTop: 16, marginBottom: 16 }}>
+              <Pagination
+                total={85}
+                showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+                defaultPageSize={20}
+                defaultCurrent={1}
+              />
+            </div>
+          </Col>
+        </Row>
+      </Col>
+    </div>
   );
 };
 
