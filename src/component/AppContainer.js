@@ -68,6 +68,9 @@ const AppContainer = () => {
                 <Route path="user" element={<AdminUser />} />
                 <Route path="faq" element={<AdminFaq />} />
                 <Route path="feedback" element={<AdminFeedback />} />
+                <Route path="contact" element={<AdminContact />} />
+                <Route path="news" element={<AdminNews />} />
+                <Route path="category" element={<AdminCategory />} />
               </Route>
 
               <Route path="product" element={<ProductPage />}>
