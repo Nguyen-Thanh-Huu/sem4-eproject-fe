@@ -4,11 +4,11 @@ import axios from 'axios';
 
 import { resetCart } from '../cart/CartSlice';
 
-const createInvoiceUrl = 'https://localhost:44302/api/invoice/createinvoice';
-const createInvoiceitemUrl = 'https://localhost:44302/api/invoiceitem/createinvoiceitem';
-const getAllInvoiceUrl = 'https://localhost:44302/api/invoice';
-const getAllInvoiceByUserIdUrl = 'https://localhost:44302/api/invoice/byuserid';
-const updateInvoiceUrl = 'https://localhost:44302/api/invoice/updateinvoice';
+const createInvoiceUrl = 'http://localhost:8080/api/v1/insert-invoice';
+const createInvoiceitemUrl = 'http://localhost:8080/api/v1/insert-invoice-item';
+const getAllInvoiceUrl = 'http://localhost:8080/api/v1/invoices';
+const getAllInvoiceByUserIdUrl = 'http://localhost:8080/api/v1/invoice-by-user-id';
+const updateInvoiceUrl = 'http://localhost:8080/api/v1/update-invoice';
 
 const initialState = {
   createdInvoiceId: '',
@@ -18,7 +18,7 @@ const initialState = {
 };
 
 export const createInvoice = createAsyncThunk(
-  '/api/invoice/createinvoice',
+  '/api/v1/insert-invoice',
   async ({ createat, totalprice, status, userid, cartItems }, thunkApi) => {
     const response = await axios({
       method: 'post',
@@ -26,7 +26,7 @@ export const createInvoice = createAsyncThunk(
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      data: { id: '', createat, totalprice, status, userid },
+      data: { id: '', createat, totalprice, status, userid, deleted: false },
     });
 
     cartItems.map((item) =>
@@ -49,11 +49,11 @@ export const createInvoiceitem = async ({ invoiceid, productid, quantity, totalp
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
-    data: { id: '', invoiceid, productid, quantity, totalprice },
+    data: { id: '', invoiceid, productid, quantity, totalprice, deleted: false },
   });
 };
 
-export const getAllInvoices = createAsyncThunk('/api/invoice', async (thunkApi) => {
+export const getAllInvoices = createAsyncThunk('/api/v1/invoices', async (thunkApi) => {
   const response = await axios({
     method: 'get',
     url: getAllInvoiceUrl,
@@ -67,7 +67,7 @@ export const getAllInvoices = createAsyncThunk('/api/invoice', async (thunkApi) 
   return response.data.responseObject;
 });
 
-export const getAllInvoicesByUserId = createAsyncThunk('/api/invoice/byuserid', async ({ id }, thunkApi) => {
+export const getAllInvoicesByUserId = createAsyncThunk('/api/v1/invoice-by-user-id', async ({ id }, thunkApi) => {
   const response = await axios({
     method: 'post',
     url: getAllInvoiceByUserIdUrl,
@@ -83,7 +83,7 @@ export const getAllInvoicesByUserId = createAsyncThunk('/api/invoice/byuserid', 
 });
 
 export const updateInvoice = createAsyncThunk(
-  '/api/invoice/updateinvoice',
+  '/api/v1/update-invoice',
   async ({ id, createat, totalprice, status, userid }, thunkApi) => {
     const response = await axios({
       method: 'post',
@@ -91,7 +91,7 @@ export const updateInvoice = createAsyncThunk(
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      data: { id, createat, totalprice, status, userid },
+      data: { id, createat, totalprice, status, userid, deleted: false },
     });
 
     return response.data.responseObject;
