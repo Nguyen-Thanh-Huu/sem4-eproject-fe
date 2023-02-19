@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const getAllUsersUrl = 'https://localhost:44302/api/user';
-const createNewUserUrl = 'https://localhost:44302/api/user/createuser';
-const updateUserWithoutPasswordUrl = 'https://localhost:44302/api/user/updateuserwithoutpassword';
-const updateUserUrl = 'https://localhost:44302/api/user/updateuser';
-const deleteUserUrl = 'https://localhost:44302/api/user/deleteuser';
+const getAllUsersUrl = 'http://localhost:8080/api/v1/users';
+const createNewUserUrl = 'http://localhost:8080/api/v1/insert-user';
+const updateUserWithoutPasswordUrl = 'http://localhost:44302/api/user/updateuserwithoutpassword';
+const updateUserUrl = 'http://localhost:8080/api/v1/update-user';
+const deleteUserUrl = 'http://localhost:8080/api/v1/delete-user';
 
 const initialState = {
   users: null,
@@ -31,7 +31,7 @@ export const getAllUsers = createAsyncThunk('/api/user', async (thunkApi) => {
 
 export const createNewUser = createAsyncThunk(
   '/api/user/createuser',
-  async ({ firstname, lastname, address, district, city, phone, email, password }, thunkApi) => {
+  async ({ firstname, lastname, address, district, city, role, phone, email, password }, thunkApi) => {
     const response = await axios({
       method: 'post',
       url: createNewUserUrl,
@@ -45,9 +45,11 @@ export const createNewUser = createAsyncThunk(
         address,
         district,
         city,
+        role,
         phone,
         email,
         password,
+        deleted: false,
       },
     });
 
@@ -57,9 +59,9 @@ export const createNewUser = createAsyncThunk(
 
 export const updateUserWithoutPassword = createAsyncThunk(
   '/api/user/updateuserwithoutpassword',
-  async ({ id, firstname, lastname, address, district, city, phone, email }, thunkApi) => {
+  async ({ id, firstname, lastname, address, district, city, role, phone, email }, thunkApi) => {
     const response = await axios({
-      method: 'post',
+      method: 'put',
       url: updateUserWithoutPasswordUrl,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -71,9 +73,11 @@ export const updateUserWithoutPassword = createAsyncThunk(
         address,
         district,
         city,
+        role,
         phone,
         email,
         password: '',
+        deleted: false,
       },
     });
 
@@ -83,9 +87,9 @@ export const updateUserWithoutPassword = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   '/api/user/updateuser',
-  async ({ id, firstname, lastname, address, district, city, phone, email, password }, thunkApi) => {
+  async ({ id, firstname, lastname, address, district, city, role, phone, email }, thunkApi) => {
     const response = await axios({
-      method: 'post',
+      method: 'put',
       url: updateUserUrl,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -97,9 +101,10 @@ export const updateUser = createAsyncThunk(
         address,
         district,
         city,
+        role,
         phone,
         email,
-        password,
+        deleted: false,
       },
     });
 
@@ -107,20 +112,33 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-export const deleteUser = createAsyncThunk('/api/user/deleteuser', async ({ id }, thunkApi) => {
-  const response = await axios({
-    method: 'post',
-    url: deleteUserUrl,
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
-    data: {
-      id,
-    },
-  });
+export const deleteUser = createAsyncThunk(
+  '/api/user/deleteuser',
+  async ({ id, firstname, lastname, address, district, city, role, phone, email, password }, thunkApi) => {
+    const response = await axios({
+      method: 'delete',
+      url: deleteUserUrl,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      data: {
+        id,
+        firstname,
+        lastname,
+        address,
+        district,
+        city,
+        role,
+        phone,
+        email,
+        password,
+        deleted: true,
+      },
+    });
 
-  return response.data.status;
-});
+    return response.data.status;
+  }
+);
 
 export const adminUserSlice = createSlice({
   name: 'adminUserSlice',

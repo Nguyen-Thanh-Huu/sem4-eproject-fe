@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const getAllAboutUsUrl = 'https://localhost:44302/api/Aboutu';
-const createNewAboutUsUrl = 'https://localhost:44302/api/Aboutu/CreateAboutu';
-const updateAboutUsUrl = 'https://localhost:44302/api/Aboutu/UpdateAboutu';
-const deleteAboutUsUrl = 'https://localhost:44302/api/Aboutu/DeleteAboutu';
+const getAllAboutUsUrl = 'http://localhost:8080/api/v1/all-about-us';
+const createNewAboutUsUrl = 'http://localhost:8080/api/v1/insert-about-us';
+const updateAboutUsUrl = 'http://localhost:8080/api/v1/update-about-us';
+const deleteAboutUsUrl = 'http://localhost:8080/api/v1/delete-about-us';
 
 const initialState = {
   aboutUs: null,
@@ -37,6 +37,7 @@ export const createNewAboutUs = createAsyncThunk('/api/AboutUs/CreateAboutu', as
     data: {
       id: '',
       content,
+      deleted: false,
     },
   });
 
@@ -45,7 +46,7 @@ export const createNewAboutUs = createAsyncThunk('/api/AboutUs/CreateAboutu', as
 
 export const updateAboutUs = createAsyncThunk('/api/Aboutu/updateAboutu', async ({ id, content }, thunkApi) => {
   const response = await axios({
-    method: 'post',
+    method: 'put',
     url: updateAboutUsUrl,
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -53,21 +54,24 @@ export const updateAboutUs = createAsyncThunk('/api/Aboutu/updateAboutu', async 
     data: {
       id,
       content,
+      deleted: false,
     },
   });
 
   return response.data.status;
 });
 
-export const deleteAboutUs = createAsyncThunk('/api/Aboutu/deleteAboutu', async ({ id }, thunkApi) => {
+export const deleteAboutUs = createAsyncThunk('/api/Aboutu/deleteAboutu', async ({ id, content }, thunkApi) => {
   const response = await axios({
-    method: 'post',
+    method: 'delete',
     url: deleteAboutUsUrl,
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
     data: {
       id,
+      content,
+      deleted: true,
     },
   });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CarryOutOutlined } from '@ant-design/icons';
+import { CarryOutOutlined, ClearOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Table, Typography } from 'antd';
 
 import {
@@ -16,10 +16,15 @@ const AdminAboutUs = () => {
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = React.useState([]);
 
+  React.useEffect(() => {
+    dispatch(getAllAboutUs());
+  }, []);
+
+  // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = async (values) => {
-    const { content } = values;
+  const handleOnFinishCreate = async () => {
+    const { content } = form.getFieldValue();
     await dispatch(
       createNewAboutUs({
         content,
@@ -30,8 +35,8 @@ const AdminAboutUs = () => {
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = async (values) => {
-    const { content } = values;
+  const handleOnFinishUpdate = async () => {
+    const { content } = form.getFieldValue();
 
     await dispatch(
       updateAboutUs({
@@ -46,10 +51,14 @@ const AdminAboutUs = () => {
   };
 
   const handleDeleteAboutUs = async () => {
-    await dispatch(deleteAboutUs({ id: selectedRow[0].id }));
+    await dispatch(deleteAboutUs({ id: selectedRow[0].id, content: selectedRow[0].content }));
     await dispatch(getAllAboutUs());
 
     setSelectedRow([]);
+    form.resetFields();
+  };
+
+  const handleClearForm = () => {
     form.resetFields();
   };
 
@@ -68,10 +77,6 @@ const AdminAboutUs = () => {
     type: 'radio',
     onChange: onSelectChange,
   };
-
-  React.useEffect(() => {
-    dispatch(getAllAboutUs());
-  }, []);
 
   return (
     <div style={{ padding: 16 }}>
@@ -127,7 +132,68 @@ const AdminAboutUs = () => {
                 <Input.TextArea showCount maxLength={500} />
               </Form.Item>
 
-              {selectedRow.length > 0 ? (
+              <Col>
+                <Row justify="space-evenly">
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      type="primary"
+                      shape="round"
+                      block
+                      icon={<PlusOutlined />}
+                      style={{ width: '7rem' }}
+                      onClick={handleOnFinishCreate}
+                    >
+                      New
+                    </Button>
+                  </Form.Item>
+
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      danger
+                      type="primary"
+                      shape="round"
+                      htmlType="button"
+                      block
+                      icon={<ClearOutlined />}
+                      onClick={handleClearForm}
+                      style={{ width: '7rem' }}
+                    >
+                      Clear
+                    </Button>
+                  </Form.Item>
+                </Row>
+                <Row justify="space-evenly">
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      type="primary"
+                      shape="round"
+                      block
+                      icon={<CarryOutOutlined />}
+                      style={{ width: '7rem' }}
+                      onClick={handleOnFinishUpdate}
+                    >
+                      Update
+                    </Button>
+                  </Form.Item>
+
+                  <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                    <Button
+                      danger
+                      type="primary"
+                      shape="round"
+                      htmlType="button"
+                      block
+                      icon={<DeleteOutlined />}
+                      onClick={handleDeleteAboutUs}
+                      style={{ width: '7rem' }}
+                    >
+                      Delete
+                    </Button>
+                  </Form.Item>
+                </Row>
+              </Col>
+
+              {/* {selectedRow.length > 0 ? (
                 <Row justify="space-evenly">
                   <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
                     <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
@@ -155,7 +221,7 @@ const AdminAboutUs = () => {
                     Create AboutUs
                   </Button>
                 </Form.Item>
-              )}
+              )} */}
             </Form>
           </Col>
         </Row>

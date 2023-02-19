@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { CarryOutOutlined } from '@ant-design/icons';
+import { CarryOutOutlined, ClearOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Table, Typography } from 'antd';
 
 import {
@@ -27,8 +27,8 @@ const AdminUser = () => {
   // Form
   const [form] = Form.useForm();
 
-  const handleOnFinishCreate = async (values) => {
-    const { firstname, lastname, address, district, city, phone, email, password } = values;
+  const handleOnFinishCreate = async () => {
+    const { firstname, lastname, address, district, city, role, phone, email, password } = form.getFieldsValue();
     await dispatch(
       createNewUser({
         firstname,
@@ -36,6 +36,7 @@ const AdminUser = () => {
         address,
         district,
         city,
+        role,
         phone,
         email,
         password,
@@ -46,44 +47,58 @@ const AdminUser = () => {
     form.resetFields();
   };
 
-  const handleOnFinishUpdate = async (values) => {
-    const { firstname, lastname, address, district, city, phone, email, password } = values;
-    if (password) {
-      await dispatch(
-        updateUser({
-          id: selectedRow[0].id,
-          firstname,
-          lastname,
-          address,
-          district,
-          city,
-          phone,
-          email,
-          password,
-        })
-      );
-    } else {
-      await dispatch(
-        updateUserWithoutPassword({
-          id: selectedRow[0].id,
-          firstname,
-          lastname,
-          address,
-          district,
-          city,
-          phone,
-          email,
-        })
-      );
-    }
+  const handleOnFinishUpdate = async () => {
+    const { firstname, lastname, address, district, city, role, phone, email } = form.getFieldValue();
+    // if (password) {
+    await dispatch(
+      updateUser({
+        id: selectedRow[0].id,
+        firstname,
+        lastname,
+        address,
+        district,
+        city,
+        role,
+        phone,
+        email,
+      })
+    );
+    // } else {
+    //   await dispatch(
+    //     updateUserWithoutPassword({
+    //       id: selectedRow[0].id,
+    //       firstname,
+    //       lastname,
+    //       address,
+    //       district,
+    //       city,
+    //       role,
+    //       phone,
+    //       email,
+    //     })
+    //   );
+    // }
 
     await dispatch(getAllUsers());
 
+    setSelectedRow([]);
     form.resetFields();
   };
 
   const handleDeleteUser = async () => {
-    await dispatch(deleteUser({ id: selectedRow[0].id }));
+    await dispatch(
+      deleteUser({
+        id: selectedRow[0].id,
+        firstname: selectedRow[0].firstname,
+        lastname: selectedRow[0].lastname,
+        address: selectedRow[0].address,
+        district: selectedRow[0].district,
+        city: selectedRow[0].city,
+        phone: selectedRow[0].phone,
+        email: selectedRow[0].email,
+        password: selectedRow[0].password,
+      })
+    );
     await dispatch(getAllUsers());
 
     setSelectedRow([]);
@@ -99,6 +114,10 @@ const AdminUser = () => {
     return e?.fileList;
   };
 
+  const handleClearForm = () => {
+    form.resetFields();
+  };
+
   // Data table
   const data = useSelector((state) => state.adminUserReducer.users);
 
@@ -108,14 +127,15 @@ const AdminUser = () => {
     { title: 'Address', dataIndex: 'address' },
     { title: 'District', dataIndex: 'district' },
     { title: 'City', dataIndex: 'city' },
+    { title: 'Role', dataIndex: 'role' },
     { title: 'Phone', dataIndex: 'phone' },
     { title: 'Email', dataIndex: 'email' },
   ];
 
   const onSelectChange = (key, newSelectedRow) => {
     setSelectedRow(newSelectedRow);
-    const { firstname, lastname, address, district, city, phone, email } = newSelectedRow[0];
-    form.setFieldsValue({ firstname, lastname, address, district, city, phone, email });
+    const { firstname, lastname, address, district, city, role, phone, email } = newSelectedRow[0];
+    form.setFieldsValue({ firstname, lastname, address, district, city, role, phone, email });
   };
 
   const rowSelection = {
@@ -202,6 +222,10 @@ const AdminUser = () => {
               <Input />
             </Form.Item>
 
+            <Form.Item label="Role" name="role" rules={[{ required: true, message: 'Please input role!' }]}>
+              <Input />
+            </Form.Item>
+
             <Form.Item
               label="Phone"
               name="phone"
@@ -224,15 +248,67 @@ const AdminUser = () => {
               <Input />
             </Form.Item>
 
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={selectedRow.length <= 0 ? [{ required: true, message: 'Please input password!' }] : null}
-            >
-              <Input.Password />
-            </Form.Item>
+            <Col>
+              <Row justify="space-evenly">
+                <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    block
+                    icon={<PlusOutlined />}
+                    style={{ width: '7rem' }}
+                    onClick={handleOnFinishCreate}
+                  >
+                    New
+                  </Button>
+                </Form.Item>
 
-            {selectedRow.length > 0 ? (
+                <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                  <Button
+                    danger
+                    type="primary"
+                    shape="round"
+                    htmlType="button"
+                    block
+                    icon={<ClearOutlined />}
+                    onClick={handleClearForm}
+                    style={{ width: '7rem' }}
+                  >
+                    Clear
+                  </Button>
+                </Form.Item>
+              </Row>
+              <Row justify="space-evenly">
+                <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    block
+                    icon={<CarryOutOutlined />}
+                    style={{ width: '7rem' }}
+                    onClick={handleOnFinishUpdate}
+                  >
+                    Update
+                  </Button>
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
+                  <Button
+                    danger
+                    type="primary"
+                    shape="round"
+                    htmlType="button"
+                    block
+                    icon={<DeleteOutlined />}
+                    onClick={handleDeleteUser}
+                    style={{ width: '7rem' }}
+                  >
+                    Delete
+                  </Button>
+                </Form.Item>
+              </Row>
+            </Col>
+            {/* {selectedRow.length > 0 ? (
               <Row justify="space-evenly">
                 <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
                   <Button type="primary" shape="round" htmlType="submit" block icon={<CarryOutOutlined />}>
@@ -279,7 +355,7 @@ const AdminUser = () => {
                   Create User
                 </Button>
               </Form.Item>
-            )}
+            )} */}
           </Form>
         </Col>
       </Row>
