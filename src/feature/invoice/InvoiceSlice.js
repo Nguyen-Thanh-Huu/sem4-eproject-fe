@@ -86,7 +86,7 @@ export const updateInvoice = createAsyncThunk(
   '/api/v1/update-invoice',
   async ({ id, createat, totalprice, status, userid }, thunkApi) => {
     const response = await axios({
-      method: 'post',
+      method: 'put',
       url: updateInvoiceUrl,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
