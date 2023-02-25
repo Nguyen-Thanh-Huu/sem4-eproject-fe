@@ -20,8 +20,8 @@ import faqReducer from '../feature/faq/FaqSlice';
 import feedbackReducer from '../feature/feedback/FeedbackSlice';
 import invoiceReducer from '../feature/invoice/InvoiceSlice';
 import invoiceitemReducer from '../feature/invoiceitem/InvoiceitemSlice';
+import newsReducer from '../feature/news/NewsSlice';
 import productReducer from '../feature/product/ProductSlice';
-import projectReducer from '../feature/project/ProjectSlice';
 import serviceReducer from '../feature/service/ServiceSlice';
 import userReducer from '../feature/user/UserSlice';
 
@@ -48,7 +48,7 @@ export const store = configureStore({
     adminDomainReducer,
     adminServiceReducer,
     adminNewsReducer,
-    projectReducer,
+    newsReducer,
     feedbackReducer,
     adminCategoryReducer,
   },

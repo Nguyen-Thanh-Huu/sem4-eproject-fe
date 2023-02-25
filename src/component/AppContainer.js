@@ -27,12 +27,14 @@ import FaqPage from './FaqPage';
 import Footer from './Footer';
 import Header from './Header';
 import HomePage from './HomePage';
+import NewsDetail from './NewsDetail';
+import NewsHome from './NewsHome';
+import NewsPage from './NewsPage';
 import PageNotFound from './PageNotFound';
 import ProductCart from './ProductCart';
 import ProductDetail from './ProductDetail';
 import ProductHome from './ProductHome';
 import ProductPage from './ProductPage';
-import ProjectPage from './ProjectPage';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UnauthorizedPage from './UnauthorizedPage';
@@ -52,8 +54,9 @@ const AppContainer = () => {
               <Route path="/" element={<HomePage />} />
               <Route path="aboutus" element={<AboutUsPage />} />
               <Route path="faq" element={<FaqPage />} />
-              <Route path="project" element={<ProjectPage />}>
-                <Route path="project/projectDetail/id?id=:projectId" element={<ProjectDetail />} />
+              <Route path="news" element={<NewsPage />}>
+                <Route index element={<NewsHome />} />
+                <Route path=":newsId" element={<NewsDetail />} />
               </Route>
 
               <Route path="admin" element={<AdminPage />}>

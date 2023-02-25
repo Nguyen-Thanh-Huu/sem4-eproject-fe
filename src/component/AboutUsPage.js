@@ -24,7 +24,7 @@ const AboutUsPage = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ background: 'rgb(250, 241, 226)' }}>
       <Row
         style={{
           backgroundImage: `url(${'https://www.phanphoiruoungoai.com/images/slideshow/slide970_504/di_san_john.jpg'})`,
@@ -39,10 +39,8 @@ const AboutUsPage = () => {
           <Col span={10} style={{ height: '300px' }}>
             <div>
               <img
-                style={{ display: 'block' }}
-                src={
-                  'https://ecpvn.com/wp-content/uploads/bfi_thumb/brand-image-1-pz477vawzdc3aks88zt2obkrkhqskv7xidu185c3aw.jpg'
-                }
+                style={{ display: 'block', boxSizing: 'border-box', width: '500px' }}
+                src={'https://khoruou.vn/Uploads/images/foloradi.png'}
               />
             </div>
           </Col>
@@ -50,15 +48,15 @@ const AboutUsPage = () => {
             <Card
               bordered={false}
               style={{
-                height: 300,
+                height: 292,
               }}
             >
               <a
                 href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
                 style={{
                   color: 'black',
-                  fontSize: '2rem',
-                  fontWeight: '600',
+                  fontSize: '3.5rem',
+                  fontWeight: 'bolder',
                   display: 'block',
                   marginBottom: '1rem',
                   marginTop: '0.2rem',
@@ -83,30 +81,43 @@ const AboutUsPage = () => {
         <Row justify="center" style={{ marginTop: '2rem', marginBottom: '1rem' }}>
           <Title
             style={{
-              color: '#076678',
-              fontSize: '4rem',
+              color: 'black',
+              fontSize: '3.5rem',
               fontWeight: 'bolder',
               textAlign: 'left',
-              textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
             }}
           >
             Brand Ambassador
           </Title>
         </Row>
         <Row>
+          <p>
+            While France is bound by rules about the naming system and the mixing of wines is completely banned,
+            Australian winemakers place more emphasis on creativity, freedom of experience and creativity. A perfect
+            blend of Cabernet Sauvignon and Shiraz. This has made the name of great winemakers such as Max Schubert and
+            world famous successful wine brands from Australia such as Penfold, Jacob Creek... This success has inspired
+            many winemakers. winery including St Annes Winer At St Winery, we carefully select the finest quality
+            vineyards to create superb Shiraz & Cabernet Sauvignon. Then blend these two wines together in a certain
+            ratio to create a rich and complex Cabernet Shiraz,” shared a representative of Bluewise Business Advisory.
+          </p>
+        </Row>
+        <Row>
           <Col span={8}>
             <div>
-              <img style={{ width: '400px' }} src={'https://sanhruou.com/media/Uploaded/Blog/Jancis-Robinson.jpg'} />
+              <img style={{ width: '400px' }} src={'https://wewine.vn/datafiles/images/SEO/ruou-vang-hcm-3.jpg'} />
             </div>
           </Col>
           <Col span={8}>
             <div>
-              <img style={{ width: '400px' }} src={'https://sanhruou.com/media/Uploaded/Blog/Jancis-Robinson.jpg'} />
+              <img
+                style={{ width: '400px', display: 'inline-block', height: '268px' }}
+                src={'https://fwb.com.vn/wp-content/uploads/2020/05/dac-tinh-co-ban-ruou-yeu-thich.jpg'}
+              />
             </div>
           </Col>
           <Col span={8}>
             <div>
-              <img style={{ width: '400px' }} src={'https://sanhruou.com/media/Uploaded/Blog/Jancis-Robinson.jpg'} />
+              <img style={{ width: '400px' }} src={'https://farm1.staticflickr.com/810/41287143141_7da382f598_z.jpg'} />
             </div>
           </Col>
         </Row>
@@ -115,11 +126,10 @@ const AboutUsPage = () => {
         <Row justify="center" style={{ marginTop: '2rem', marginBottom: '1rem' }}>
           <Title
             style={{
-              color: '#076678',
-              fontSize: '4rem',
+              color: 'black',
+              fontSize: '3.5rem',
               fontWeight: 'bolder',
               textAlign: 'left',
-              textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
             }}
           >
             Mission
@@ -127,7 +137,8 @@ const AboutUsPage = () => {
         </Row>
         <Row justify="space-around">
           <Col span={7}>
-            <Card title="Vision" bordered={false} style={{ height: '300px' }}>
+            <Card bordered={false} style={{ height: '300px' }}>
+              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder' }}> Vision </p>
               <p>
                 Becoming the leading prestigious brand in Vietnam in importing and distributing wine nationwide. With
                 the presence of showrooms in 64 provinces and cities, mentioning wine is referring to THEKEY WINE.
@@ -135,7 +146,8 @@ const AboutUsPage = () => {
             </Card>
           </Col>
           <Col span={7}>
-            <Card title="Core Values" bordered={false} style={{ height: '300px' }}>
+            <Card bordered={false} style={{ height: '300px' }}>
+              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder' }}> Core value</p>
               <ul style={{ listStyleType: 'none' }}>
                 <li> 1. Passion for customer service</li>
                 <li> 2. See yourself as the root of all problems</li>
@@ -146,7 +158,8 @@ const AboutUsPage = () => {
             </Card>
           </Col>
           <Col span={7}>
-            <Card title="Purpose" bordered={false} style={{ height: '300px' }}>
+            <Card bordered={false} style={{ height: '300px' }}>
+              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder' }}> Purpose</p>
               <p>
                 THEKEY WINE is committed to bringing to the community the best quality, premium, healthful and delicate
                 wine products on each meal, table full of closeness and health.
@@ -160,18 +173,16 @@ const AboutUsPage = () => {
 
         <Carousel autoplay>
           <div>
-            <h3 className={styles.contentStyle}>
-              <img src={' '} />
-            </h3>
+            <h3 className={styles.contentStyle1}></h3>
           </div>
           <div>
-            <h3 className={styles.contentStyle}>2</h3>
+            <h3 className={styles.contentStyle2}></h3>
           </div>
           <div>
-            <h3 className={styles.contentStyle}>3</h3>
+            <h3 className={styles.contentStyle3}></h3>
           </div>
           <div>
-            <h3 className={styles.contentStyle}>4</h3>
+            <h3 className={styles.contentStyle4}></h3>
           </div>
         </Carousel>
       </Col>
