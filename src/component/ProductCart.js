@@ -8,6 +8,7 @@ import { createInvoice } from '../feature/invoice/InvoiceSlice';
 import shoppingImage from '../images/shopping/shopping.webp';
 
 import CartItem from './CartItem';
+import StripeButton from './StripeButton';
 
 const { Title } = Typography;
 
@@ -40,33 +41,33 @@ const ProductCart = () => {
     });
   };
 
-  const handleCreateInvoice = async () => {
-    // const userid = localStorage.getItem('userid');
+  // const handleCreateInvoice = async () => {
+  //   // const userid = localStorage.getItem('userid');
 
-    const createat = new Date().toISOString();
-    const status = InvoiceStatus.REQUEST_RECEIVED;
+  //   const createat = new Date().toISOString();
+  //   const status = InvoiceStatus.REQUEST_RECEIVED;
 
-    let totalprice = 0;
-    cartItems.map((item) => (totalprice += parseInt(item.totalprice)));
+  //   let totalprice = 0;
+  //   cartItems.map((item) => (totalprice += parseInt(item.totalprice)));
 
-    await dispatch(
-      createInvoice({ createat, status, totalprice, userid: '165b9d2d-1bc7-4d82-a092-25719354011a', cartItems })
-    );
-    dispatch(resetCart());
+  //   await dispatch(
+  //     createInvoice({ createat, status, totalprice, userid: '165b9d2d-1bc7-4d82-a092-25719354011a', cartItems })
+  //   );
+  //   dispatch(resetCart());
 
-    // if (userid) {
-    //   const createat = new Date().toISOString();
-    //   const status = InvoiceStatus.REQUEST_RECEIVED;
+  //   // if (userid) {
+  //   //   const createat = new Date().toISOString();
+  //   //   const status = InvoiceStatus.REQUEST_RECEIVED;
 
-    //   let totalprice = 0;
-    //   cartItems.map((item) => (totalprice += parseInt(item.totalprice)));
+  //   //   let totalprice = 0;
+  //   //   cartItems.map((item) => (totalprice += parseInt(item.totalprice)));
 
-    //   await dispatch(createInvoice({ createat, status, totalprice, userid, cartItems }));
-    //   dispatch(resetCart());
-    // } else {
-    //   openNotification();
-    // }
-  };
+  //   //   await dispatch(createInvoice({ createat, status, totalprice, userid, cartItems }));
+  //   //   dispatch(resetCart());
+  //   // } else {
+  //   //   openNotification();
+  //   // }
+  // };
 
   return (
     <Row>
@@ -158,9 +159,10 @@ const ProductCart = () => {
             </Col>
           </Row>
           <Row justify="center" style={{ marginTop: 16, marginBottom: 128 }}>
-            <Button type="primary" shape="round" onClick={handleCreateInvoice} icon={<ScheduleOutlined />}>
+            <StripeButton price={invoiceTotalPrice} />
+            {/* <Button type="primary" shape="round" onClick={handleCreateInvoice} icon={<ScheduleOutlined />}>
               Create Order
-            </Button>
+            </Button> */}
           </Row>
         </Col>
       ) : (
