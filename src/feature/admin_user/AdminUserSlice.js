@@ -45,10 +45,10 @@ export const createNewUser = createAsyncThunk(
         address,
         district,
         city,
-        role,
+        role: 'user',
         phone,
         email,
-        password,
+        password: '12345',
         deleted: false,
       },
     });
