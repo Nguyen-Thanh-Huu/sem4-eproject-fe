@@ -173,7 +173,7 @@ const Header = () => {
                 </Space>
               </Row>
               <Row justify="end">
-                {/* {localStorage.getItem('userFirstname') && localStorage.getItem('userrole') === 'Admin' ? (
+                {localStorage.getItem('userFirstname') && localStorage.getItem('userrole') === 'admin' ? (
                   <Menu
                     theme="dark"
                     onClick={handleClick}
@@ -191,15 +191,7 @@ const Header = () => {
                     disabledOverflow
                     items={MENU_ITEMS_CLIENT}
                   />
-                )} */}
-                <Menu
-                  theme="dark"
-                  onClick={handleClick}
-                  selectedKeys={[currentMenu]}
-                  mode="horizontal"
-                  disabledOverflow
-                  items={MENU_ITEMS_ADMIN}
-                />
+                )}
               </Row>
             </Space>
           </Row>

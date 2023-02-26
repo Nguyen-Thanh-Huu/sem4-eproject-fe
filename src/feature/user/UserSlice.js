@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const signInUrl = 'https://localhost:44302/api/user/authenticate';
-const getUserByIdUrl = 'https://localhost:44302/api/user/';
+const signInUrl = 'http://localhost:8080/api/v1/authenticate';
+const getUserByIdUrl = 'http://localhost:8080/api/v1/user';
 
 const initialState = {
   user: null,
@@ -15,7 +15,7 @@ export const signIn = createAsyncThunk('/api/user/authenticate', async ({ email,
     method: 'post',
     url: signInUrl,
     data: {
-      email,
+      login: email,
       password,
     },
   });
@@ -37,10 +37,13 @@ export const signIn = createAsyncThunk('/api/user/authenticate', async ({ email,
 
 export const getUserById = createAsyncThunk('/api/user/id', async ({ id }, thunkApi) => {
   const response = await axios({
-    method: 'get',
-    url: getUserByIdUrl + id,
+    method: 'post',
+    url: getUserByIdUrl,
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    data: {
+      id,
     },
   });
 
