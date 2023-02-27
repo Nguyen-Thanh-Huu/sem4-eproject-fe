@@ -35,7 +35,7 @@ const NewsDetail = () => {
             </Title>
             <p>
               <FieldTimeOutlined />
-              <span>{newsDetailItem.createat}</span>
+              <span>{new Date(newsDetailItem.createat).toLocaleString()}</span>
             </p>
             <p>
               Wine is a fermented beverage made from grapes or other fruits, such as apples or berries. The process of

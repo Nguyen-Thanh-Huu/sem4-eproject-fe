@@ -83,7 +83,7 @@ function NewsHome() {
                         {news.title}
                       </Button>
                       <div style={{ marginBottom: '0.3rem' }}>
-                        <FieldTimeOutlined /> <span> {news.createat} </span>
+                        <FieldTimeOutlined /> <span> {new Date(news.createat).toLocaleString()} </span>
                       </div>
                       <p>{news.content}</p>
                     </Card>
