@@ -35,12 +35,12 @@ const adminMenu = [
 const AdminPage = () => {
   const navigate = useNavigate();
 
-  // React.useEffect(() => {
-  //   const userRole = localStorage.getItem('userrole');
-  //   if (userRole !== 'Admin') {
-  //     navigate('/unauthorized');
-  //   }
-  // }, []);
+  React.useEffect(() => {
+    const userRole = localStorage.getItem('userrole');
+    if (userRole !== 'admin') {
+      navigate('/unauthorized');
+    }
+  }, []);
 
   return (
     <Row gutter={16}>
