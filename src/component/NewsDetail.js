@@ -1,66 +1,56 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { FieldTimeOutlined } from '@ant-design/icons';
 import { Col, Image, Row, Typography } from 'antd';
 
-import styles from '../css/Project.module.css';
-
 const { Title } = Typography;
-import { getNewsById } from '../feature/news/NewsSlice';
 
+// import { getAllNews } from '../feature/admin_news/AdminNewsSlice';
+import { getNewsById } from '../feature/news/NewsSlice';
 const NewsDetail = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const newsDetailItem = useSelector((state) => state.newsReducer.newsDetail);
+  // const allNews = useSelector((state) => state.adminNewsReducer.news);
 
   React.useEffect(() => {
     dispatch(getNewsById({ id: params.newsId }));
+    // dispatch(getAllNews());
   }, []);
-
   return (
-    <Col style={{ margin: 'auto', width: '80%', marginBottom: '8rem' }}>
-      <Row justify="start" style={{ marginTop: '2rem', marginBottom: '0rem' }}>
-        <Col>
-          <Title
-            style={{
-              color: '#076678',
-              fontSize: '4rem',
-              fontWeight: 'bolder',
-              textAlign: 'left',
-              textShadow: '5px 5px 0px rgba(131,165,152,0.7)',
-            }}
-          >
-            News Detail
-          </Title>
-        </Col>
-      </Row>
-      <Row justify="center" align="middle">
+    <Col style={{ margin: 'auto', width: '60%', marginBottom: '8rem' }}>
+      <Row justify="center" align="middle" style={{ marginTop: '2rem' }}>
         {newsDetailItem && (
           <div>
-            <p> {newsDetailItem.content}</p>
+            <Title
+              style={{
+                color: 'black',
+                fontSize: '2rem',
+                fontWeight: 'bolder',
+                textAlign: 'left',
+              }}
+            >
+              {newsDetailItem.title}
+            </Title>
+            <p>
+              <FieldTimeOutlined />
+              <span>{newsDetailItem.createat}</span>
+            </p>
+            <p>
+              Wine is a fermented beverage made from grapes or other fruits, such as apples or berries. The process of
+              winemaking involves crushing and pressing the grapes, then fermenting the juice with yeast to convert the
+              sugars into alcohol. Different types of wine are produced by using different grape varieties, fermentation
+              techniques, and aging methods. Wine has been enjoyed for thousands of years and is an integral part of
+              many cultures around the world. It is often associated with celebrations, fine dining, and social
+              gatherings. Wine is also known for its health benefits when consumed in moderation, as it contains
+              antioxidants and can help lower the risk of heart disease.
+            </p>
+            <p>{newsDetailItem.content}</p>
+
+            <Image style={{ display: 'block' }} src={newsDetailItem.image} />
           </div>
         )}
-
-        {/* {newsDetailItem.map((item, index) => {
-          <Col key={index}>
-            <Row>
-              <Title
-                style={{
-                  color: '#076678',
-                  fontSize: '2rem',
-                  fontWeight: 'bolder',
-                  textAlign: 'left',
-                }}
-              >
-                {item.title}
-              </Title>
-            </Row>
-            <Row>
-              <Image src={item.image} />
-            </Row>
-            <Row>{item.content}</Row>
-          </Col>;
-        })} */}
       </Row>
     </Col>
   );

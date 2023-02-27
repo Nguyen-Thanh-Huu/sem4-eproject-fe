@@ -49,12 +49,13 @@ const AboutUsPage = () => {
               bordered={false}
               style={{
                 height: 292,
+                background: '#023a21',
               }}
             >
               <a
                 href="https://stackoverflow.com/questions/64944037/how-can-i-add-href-to-icon-for-ant-design"
                 style={{
-                  color: 'black',
+                  color: 'white',
                   fontSize: '3.5rem',
                   fontWeight: 'bolder',
                   display: 'block',
@@ -64,7 +65,7 @@ const AboutUsPage = () => {
               >
                 Brach Introduction
               </a>
-              <p>
+              <p style={{ color: 'white' }}>
                 Founded in 1883 in Santiago - Chile, since ancient times Concha y Toro has been the favorite wine of the
                 aristocracy. Concha y Toro is known as the most famous wine producer and exporter in Latin America and
                 is one of the 10 largest famous wine brand companies in the world. The annual sales of this Chilean wine
@@ -137,18 +138,18 @@ const AboutUsPage = () => {
         </Row>
         <Row justify="space-around">
           <Col span={7}>
-            <Card bordered={false} style={{ height: '300px' }}>
-              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder' }}> Vision </p>
-              <p>
+            <Card bordered={false} style={{ height: '300px', background: '#023a21' }}>
+              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder', color: 'white' }}> Vision </p>
+              <p style={{ color: 'white' }}>
                 Becoming the leading prestigious brand in Vietnam in importing and distributing wine nationwide. With
                 the presence of showrooms in 64 provinces and cities, mentioning wine is referring to THEKEY WINE.
               </p>
             </Card>
           </Col>
           <Col span={7}>
-            <Card bordered={false} style={{ height: '300px' }}>
-              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder' }}> Core value</p>
-              <ul style={{ listStyleType: 'none' }}>
+            <Card bordered={false} style={{ height: '300px', background: '#023a21' }}>
+              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder', color: 'white' }}> Core value</p>
+              <ul style={{ listStyleType: 'none', color: 'white' }}>
                 <li> 1. Passion for customer service</li>
                 <li> 2. See yourself as the root of all problems</li>
                 <li> 4. Integrity</li>
@@ -158,9 +159,9 @@ const AboutUsPage = () => {
             </Card>
           </Col>
           <Col span={7}>
-            <Card bordered={false} style={{ height: '300px' }}>
-              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder' }}> Purpose</p>
-              <p>
+            <Card bordered={false} style={{ height: '300px', background: '#023a21' }}>
+              <p style={{ fontSize: '1.3rem', fontWeight: 'bolder', color: 'white' }}> Purpose</p>
+              <p style={{ color: 'white' }}>
                 THEKEY WINE is committed to bringing to the community the best quality, premium, healthful and delicate
                 wine products on each meal, table full of closeness and health.
               </p>

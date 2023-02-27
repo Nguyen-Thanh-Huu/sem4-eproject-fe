@@ -6,7 +6,7 @@ const newsUrl = 'http://localhost:8080/api/v1/all-news';
 const getNewsByIdUrl = 'http://localhost:8080/api/v1/news';
 
 const initialState = {
-  news: [],
+  news: null,
   newsDetail: null,
 };
 
@@ -23,7 +23,7 @@ export const getAllNews = createAsyncThunk('/api/all-news', async (thunkApi) => 
 
 export const getNewsById = createAsyncThunk('/api/news', async ({ id }, thunkApi) => {
   const response = await axios({
-    method: 'get',
+    method: 'post',
     url: getNewsByIdUrl,
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
