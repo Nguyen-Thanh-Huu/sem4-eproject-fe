@@ -11,5 +11,43 @@
 }
 
 .space {
-  height: 100px;
+  height: 50px;
+}
+
+.contentStyle1 {
+  height: 400px;
+  line-height: 160px;
+  text-align: center;
+  background-image: url('https://hunifood.vn/wp-content/uploads/2020/07/z1991375778331_3bd78a98ea10e8d8d828f0a7d77c5d5e.jpg');
+  background-size: cover;
+}
+
+
+.contentStyle2 {
+  height: 400px;
+  line-height: 160px;
+  text-align: cover;
+  background-image: url('https://bizweb.dktcdn.net/100/337/663/themes/695909/assets/slideshow_2.jpg?1674004159718');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+.contentStyle3 {
+  height: 400px;
+  line-height: 160px;
+  text-align: center;
+  background-image: url('https://quatangtinhtuy.com.vn/wp-content/uploads/2019/09/nganh-cong-nghiep-san-xuat-ruou-vang-australia.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+.contentStyle4 {
+  height: 400px;
+  line-height: 160px;
+  text-align: center;
+  background-image: url('http://shopruouvang.com.vn/upload/hinhanh/kisspngwoodflooringvarnishwoodenfloorbordertexture5a83635291aa50-1779.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
