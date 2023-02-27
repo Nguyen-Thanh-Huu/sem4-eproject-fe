@@ -1,45 +1,64 @@
 import React from 'react';
+import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { CarryOutOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Table, Typography } from 'antd';
+import { DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Col, Form, Input, Row, Select, Space, Table, Typography } from 'antd';
 
-import { getAllFeedback, removeFeedbackById } from '../feature/admin_feedback/AdminFeedbackSlice';
+import { deleteFeedback, getAllFeedbacks } from '../feature/admin_feedback/AdminFeedbackSlice';
+import { getAllProducts } from '../feature/admin_product/AdminProductSlice';
+import { getAllUsers } from '../feature/admin_user/AdminUserSlice';
 
 const { Title } = Typography;
 
 const AdminFeedback = () => {
   const dispatch = useDispatch();
+  // Data table
+  const data = useSelector((state) => state.adminFeedbackReducer.feedbacks);
+  const products = useSelector((state) => state.productReducer.products);
+  const users = useSelector((state) => state.adminUserReducer.users);
 
   const [selectedRow, setSelectedRow] = React.useState([]);
 
   React.useEffect(() => {
-    dispatch(getAllFeedback());
+    dispatch(getAllFeedbacks());
+    dispatch(getAllProducts());
+    dispatch(getAllUsers());
   }, []);
 
   // Form
   const [form] = Form.useForm();
 
-  const handleDeleteFeedback = async () => {
-    await dispatch(removeFeedbackById({ id: selectedRow[0].id }));
-    await dispatch(getAllFeedback());
+  const handleDeleteProduct = async () => {
+    await dispatch(deleteFeedback({ id: selectedRow[0].id }));
+    await dispatch(getAllFeedbacks());
+    await dispatch(getAllProducts());
+    await dispatch(getAllUsers());
 
     setSelectedRow([]);
     form.resetFields();
   };
 
-  // Data table
-  const data = useSelector((state) => state.adminFeedbackReducer.feedbacks);
-
+  // Table
   const columns = [
-    { title: 'Firstname', dataIndex: 'firstname' },
-    { title: 'Lastname', dataIndex: 'lastname' },
-    { title: 'Content', dataIndex: 'content' },
+    {
+      title: 'UserName',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Product',
+      dataIndex: 'product',
+    },
+    {
+      title: 'Content',
+      dataIndex: 'content',
+    },
   ];
 
   const onSelectChange = (key, newSelectedRow) => {
     setSelectedRow(newSelectedRow);
-    const { firstname, lastname, content } = newSelectedRow[0];
-    form.setFieldsValue({ firstname, lastname, content });
+    const { userId, content, productId, firstName, lastName } = newSelectedRow[0];
+    form.setFieldsValue({ userId, content, productId, firstName, lastName });
   };
 
   const rowSelection = {
@@ -76,7 +95,6 @@ const AdminFeedback = () => {
             <Title level={4} style={{ color: '#D65D0E' }}>
               Feedback Info
             </Title>
-
             <Form
               form={form}
               name="basic"
@@ -92,18 +110,8 @@ const AdminFeedback = () => {
                 offset: 0,
               }}
             >
-              <Form.Item label="Firstname" name="firstname">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Lastname" name="lastname">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Content" name="content">
-                <Input.TextArea showCount maxLength={250} rows={7} />
-              </Form.Item>
-
-              {selectedRow.length > 0 ? (
-                <Row justify="space-evenly">
+              <Col>
+                <Row>
                   <Form.Item wrapperCol={{ span: 24, offset: 0 }}>
                     <Button
                       danger
@@ -111,14 +119,15 @@ const AdminFeedback = () => {
                       shape="round"
                       htmlType="button"
                       block
-                      icon={<CarryOutOutlined />}
-                      onClick={handleDeleteFeedback}
+                      icon={<DeleteOutlined />}
+                      onClick={handleDeleteProduct}
+                      style={{ width: '7rem' }}
                     >
                       Delete
                     </Button>
                   </Form.Item>
                 </Row>
-              ) : null}
+              </Col>
             </Form>
           </Col>
         </Row>
