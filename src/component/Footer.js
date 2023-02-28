@@ -19,7 +19,7 @@ import styles from '../css/Footer.module.css';
 const { Title } = Typography;
 const Footer = () => {
   const dispatch = useDispatch();
-  const contactPairs = useSelector((state) => state.adminContactReducer.contact);
+  const contactPairs = useSelector((state) => state.adminContactReducer.contacts);
   React.useEffect(() => {
     dispatch(getAllContacts());
   }, []);

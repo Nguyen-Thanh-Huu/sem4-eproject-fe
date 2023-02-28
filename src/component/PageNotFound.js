@@ -15,7 +15,7 @@ const PageNotFound = () => {
     <Row style={{ background: '#FAF1E2' }}>
       <div className={styles.main}>
         <p className={styles.content}>
-          <span className={styles.first}>O</span> ops!
+          <span className={styles.first}>404</span>
         </p>
         <p className={styles.not_found}>404 - PAGE NOT FOUND </p>
         <div className={styles.note}>
