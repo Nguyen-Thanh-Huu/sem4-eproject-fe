@@ -2,10 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { SendOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, Form, Image, Input, Row, Spin, Typography } from 'antd';
+import { Avatar, Button, Card, Col, Divider, Form, Image, Input, Row, Spin, Typography } from 'antd';
 
 import { addToCart } from '../feature/cart/CartSlice';
-import { createFeedback, getAllByProductId } from '../feature/feedback/FeedbackSlice';
+import { getAllCategories } from '../feature/category/CategorySlice';
+import { createNewFeedback, getAllByProductId } from '../feature/feedback/FeedbackSlice';
 import { getProductById } from '../feature/product/ProductSlice';
 
 const { Title, Text } = Typography;
@@ -14,12 +15,14 @@ const ProductDetail = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const productDetail = useSelector((state) => state.productReducer.productDetail);
+  const categories = useSelector((state) => state.categoryReducer.categories);
   const feedbacks = useSelector((state) => state.feedbackReducer.feedbacks);
 
   const [feedbackValue, setFeedbackValue] = React.useState('');
 
   React.useEffect(() => {
     dispatch(getProductById({ id: params.productId }));
+    dispatch(getAllCategories());
     dispatch(getAllByProductId({ id: params.productId }));
   }, []);
 
@@ -33,13 +36,14 @@ const ProductDetail = () => {
 
   const handleCreateFeedback = async () => {
     await dispatch(
-      createFeedback({
-        firstname: localStorage.getItem('userFirstname'),
-        lastname: localStorage.getItem('userLastname'),
-        userid: localStorage.getItem('userid'),
+      createNewFeedback({
+        userId: localStorage.getItem('userid'),
         content: feedbackValue,
-        productid: productDetail.id,
         createat: new Date().toISOString(),
+        productId: productDetail.id,
+        firstName: localStorage.getItem('userFirstname'),
+        lastName: localStorage.getItem('userLastname'),
+        deleted: false,
       })
     );
     setFeedbackValue('');
@@ -47,52 +51,78 @@ const ProductDetail = () => {
   };
 
   return (
-    <Row>
-      {productDetail ? (
-        <Row>
-          <Row gutter={16} justify="space-between" style={{ marginLeft: 40, marginTop: 40, marginBottom: 40 }}>
-            <Row>
-              <Col span={12} style={{ padding: 16 }}>
-                <Image
-                  width={'100%'}
-                  src={productDetail.image}
+    <div style={{ backgroundColor: '#faf1e2' }}>
+      <div style={{ margin: 'auto', width: '90%', padding: '5rem 0' }}>
+        {productDetail && categories ? (
+          <Row gutter={16}>
+            <Row style={{ margin: 'auto' }}>
+              <Col span={8}>
+                <Image height={'680px'} width={'350px'} src={productDetail.image} />
+              </Col>
+              <Col span={16}>
+                <Row justify="space-between">
+                  <Col span={18}>
+                    <Title style={{ color: '#d06539' }}>{productDetail.name}</Title>
+                  </Col>
+                  <Col span={6} align="end">
+                    <Title style={{ color: '#d06539' }}>${productDetail.price}</Title>
+                  </Col>
+                </Row>
+                <Divider
                   style={{
-                    boxShadow: '10px 10px 0px rgba(131,165,152,0.7)',
-                    marginBottom: '32px',
-                    borderStyle: 'solid',
-                    borderWidth: '1px',
-                    borderColor: 'rgba(131,165,152,0.7)',
+                    borderColor: '#023a21',
+                    borderWidth: '0.1rem',
                   }}
                 />
-              </Col>
-              <Col span={12}>
-                <Row justify="end">
-                  <Title style={{ color: '#076678' }}>{productDetail.name}</Title>
+
+                <Row style={{ paddingTop: '1.5rem' }}>
+                  <Col span={12}>
+                    <Title level={4} style={{ color: '#023a21' }}>
+                      Category:
+                    </Title>
+                    <Title level={5} style={{ color: '#023a21' }}>
+                      {categories.find((item) => item.id === productDetail.categoryid).name}
+                    </Title>
+                  </Col>
+                  <Col span={12}>
+                    <Title level={4} style={{ color: '#023a21' }}>
+                      Alcohol:
+                    </Title>
+                    <Title level={5} style={{ color: '#023a21' }}>
+                      {productDetail.alcohol}
+                    </Title>
+                  </Col>
                 </Row>
-                <Row justify="end">
-                  <Title level={2} style={{ color: '#D65D0E' }}>
-                    {productDetail.price} USD
-                  </Title>
+
+                <Row style={{ paddingTop: '1.5rem' }}>
+                  <Card
+                    title="Detail Information"
+                    style={{
+                      width: '100%',
+                      backgroundColor: '#faf1e2',
+                      borderColor: '#023a21',
+                    }}
+                  >
+                    <p>{productDetail.description}</p>
+                  </Card>
                 </Row>
-                <Row justify="end" style={{ marginTop: 16, marginBottom: 16 }}>
-                  <Button type="primary" shape="round" onClick={handleAddToCart}>
+                <Row style={{ marginTop: 16, marginBottom: 16, paddingTop: '1.5rem' }}>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    onClick={handleAddToCart}
+                    style={{ background: '#d06539', borderColor: '#d06539' }}
+                  >
                     Add to Cart
                   </Button>
                 </Row>
               </Col>
             </Row>
-            <Row style={{ marginLeft: 40, marginTop: 40, marginBottom: 40 }}>
-              <Title level={2} style={{ color: '#B16286' }}>
-                Detail Information
-              </Title>
-              <Title level={4} style={{ color: '#504945' }}>
-                {productDetail.description}
-              </Title>
-            </Row>
-            <Row style={{ marginLeft: 40, marginBottom: 40, width: '100%' }}>
+
+            <Row style={{ marginLeft: 40, marginBottom: 40, width: '100%', paddingTop: '3rem' }}>
               <Col span={24}>
                 <Row style={{ width: '100%' }}>
-                  <Title level={2} style={{ color: '#B16286' }}>
+                  <Title level={2} style={{ color: '#d06539' }}>
                     Feedbacks
                   </Title>
                 </Row>
@@ -108,6 +138,7 @@ const ProductDetail = () => {
                         htmlType="button"
                         onClick={handleCreateFeedback}
                         icon={<SendOutlined />}
+                        style={{ background: '#d06539', borderColor: '#d06539' }}
                       >
                         Send Feedback
                       </Button>
@@ -115,34 +146,36 @@ const ProductDetail = () => {
                   </Row>
                 ) : null}
                 <Row>
-                  {feedbacks ? (
-                    feedbacks.map((feedback) => (
-                      <Col key={feedback.id} style={{ marginBottom: '1.5rem' }}>
-                        <Row align="middle">
-                          <Avatar style={{ backgroundColor: '#1890ff' }}>{feedback.firstname.charAt(0)}</Avatar>
-                          <Title level={5} style={{ marginLeft: '1rem' }}>
-                            {feedback.firstname + ' ' + feedback.lastname}
-                          </Title>
-                        </Row>
-                        <Text level={6}>{feedback.content}</Text>
-                      </Col>
-                    ))
-                  ) : (
-                    <Row justify="center">
-                      <Spin size="large" />
-                    </Row>
-                  )}
+                  <Col>
+                    {feedbacks ? (
+                      feedbacks.map((feedback) => (
+                        <Col key={feedback.id} style={{ marginBottom: '1.5rem' }}>
+                          <Row align="middle">
+                            <Avatar style={{ backgroundColor: '#1890ff' }}>{feedback.firstName.charAt(0)}</Avatar>
+                            <Title level={5} style={{ marginLeft: '1rem' }}>
+                              {feedback.firstName + ' ' + feedback.lastName}
+                            </Title>
+                          </Row>
+                          <Text level={6}>{feedback.content}</Text>
+                        </Col>
+                      ))
+                    ) : (
+                      <Row justify="center">
+                        <Spin size="large" />
+                      </Row>
+                    )}
+                  </Col>
                 </Row>
               </Col>
             </Row>
           </Row>
-        </Row>
-      ) : (
-        <Row justify="center">
-          <Spin size="large" />
-        </Row>
-      )}
-    </Row>
+        ) : (
+          <Row justify="center">
+            <Spin size="large" />
+          </Row>
+        )}
+      </div>
+    </div>
   );
 };
 

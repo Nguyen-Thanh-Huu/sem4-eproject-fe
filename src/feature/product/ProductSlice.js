@@ -3,10 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const getAllProductsUrl = 'http://localhost:8080/api/v1/products';
-const getProductByIdUrl = 'https://localhost:44302/api/product/';
-const getProductByNameUrl = 'https://localhost:44302/api/product/searchbyname';
-const filterProductByDomainUrl = 'https://localhost:44302/api/product/filterbydomainid';
-const filterProductByServiceUrl = 'https://localhost:44302/api/product/filterbyserviceid';
+const getProductByIdUrl = 'http://localhost:8080/api/v1/product';
 
 const getAllCategoriesUrl = 'http://localhost:8080/api/v1/categories';
 
@@ -38,43 +35,13 @@ export const getAllProducts = createAsyncThunk('/api/v1/products', async (thunkA
   return response.data.responseObject;
 });
 
-export const getProductById = createAsyncThunk('/api/product/id', async ({ id }, thunkApi) => {
-  const response = await axios({
-    method: 'get',
-    url: getProductByIdUrl + id,
-  });
-
-  return response.data.responseObject;
-});
-
-export const getProductByName = createAsyncThunk('/api/product/searchbyname', async ({ name }, thunkApi) => {
+export const getProductById = createAsyncThunk('/api/product', async ({ id }, thunkApi) => {
   const response = await axios({
     method: 'post',
-    url: getProductByNameUrl,
-    data: {
-      name,
+    url: getProductByIdUrl,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
-  });
-
-  return response.data.responseObject;
-});
-
-export const filterProductByDomain = createAsyncThunk('/api/product/filterbydomainid', async ({ id }, thunkApi) => {
-  const response = await axios({
-    method: 'post',
-    url: filterProductByDomainUrl,
-    data: {
-      id,
-    },
-  });
-
-  return response.data.responseObject;
-});
-
-export const filterProductByService = createAsyncThunk('/api/product/filterbyserviceid', async ({ id }, thunkApi) => {
-  const response = await axios({
-    method: 'post',
-    url: filterProductByServiceUrl,
     data: {
       id,
     },
@@ -93,15 +60,6 @@ export const productSlice = createSlice({
     });
     builder.addCase(getProductById.fulfilled, (state, action) => {
       state.productDetail = action.payload;
-    });
-    builder.addCase(getProductByName.fulfilled, (state, action) => {
-      state.products = action.payload;
-    });
-    builder.addCase(filterProductByDomain.fulfilled, (state, action) => {
-      state.products = action.payload;
-    });
-    builder.addCase(filterProductByService.fulfilled, (state, action) => {
-      state.products = action.payload;
     });
   },
 });

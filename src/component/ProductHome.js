@@ -6,9 +6,7 @@ import { Breadcrumb, Button, Col, Divider, Image, Input, Pagination, Row, Select
 
 import { getAllProducts } from '../feature/admin_product/AdminProductSlice';
 import { addToCart } from '../feature/cart/CartSlice';
-import { getAllDomains } from '../feature/domain/DomainSlice';
-import { filterProductByDomain, filterProductByService, getProductByName } from '../feature/product/ProductSlice';
-import { getAllServices } from '../feature/service/ServiceSlice';
+import { getAllCategories } from '../feature/category/CategorySlice';
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -18,33 +16,14 @@ const ProductHome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
-  const domains = useSelector((state) => state.domainReducer.domains);
-  const services = useSelector((state) => state.serviceReducer.services);
 
   React.useEffect(() => {
-    dispatch(getAllDomains());
-    dispatch(getAllServices());
+    dispatch(getAllCategories());
     dispatch(getAllProducts());
   }, []);
 
   const handleAddToCartClick = (product) => {
     dispatch(addToCart(product));
-  };
-
-  const handleSearch = (value) => {
-    if (value) {
-      dispatch(getProductByName({ name: value }));
-    } else {
-      dispatch(getAllProducts());
-    }
-  };
-
-  const handleFilterByDomain = (value) => {
-    dispatch(filterProductByDomain({ id: value }));
-  };
-
-  const handleFilterByService = (value) => {
-    dispatch(filterProductByService({ id: value }));
   };
 
   return (
@@ -65,49 +44,6 @@ const ProductHome = () => {
           </Col>
         </Row>
 
-        <Row justify="center" gutter={16}>
-          <Col span={12}>
-            <Search
-              placeholder="Enter Product Name..."
-              allowClear
-              enterButton="Search"
-              size="large"
-              onSearch={handleSearch}
-            />
-          </Col>
-          <Col span={4}>
-            <Select
-              placeholder="Filter by Domain"
-              onChange={handleFilterByDomain}
-              style={{ width: '100%' }}
-              size="large"
-            >
-              {domains
-                ? domains.map((domain) => (
-                    <Option key={domain.id} value={domain.id}>
-                      {domain.name}
-                    </Option>
-                  ))
-                : null}
-            </Select>
-          </Col>
-          <Col span={4}>
-            <Select
-              placeholder="Filter by Service"
-              onChange={handleFilterByService}
-              style={{ width: '100%' }}
-              size="large"
-            >
-              {services
-                ? services.map((service) => (
-                    <Option key={service.id} value={service.id}>
-                      {service.name}
-                    </Option>
-                  ))
-                : null}
-            </Select>
-          </Col>
-        </Row>
         <Row gutter={16} style={{ marginTop: 40, marginBottom: 40 }}>
           <Col span={6}></Col>
           <Col span={18}>
