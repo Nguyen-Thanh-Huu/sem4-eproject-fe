@@ -19,7 +19,7 @@ const PageNotFound = () => {
         </p>
         <p className={styles.not_found}>404 - PAGE NOT FOUND </p>
         <div className={styles.note}>
-          The page you are looking for might have been removed had its name change or is temporerily unavaiable
+          The page you are looking for might have been removed had its name change or is temporarily unavailable
         </div>
         <Button type="primary" style={{ marginLeft: '46%', marginTop: '1.5rem' }} onClick={handleClick}>
           Back Home
