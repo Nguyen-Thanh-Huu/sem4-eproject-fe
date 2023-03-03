@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { CarryOutOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Typography } from 'antd';
 
-import { updateUser, updateUserWithoutPassword } from '../feature/admin_user/AdminUserSlice';
+import { updateUser, updateUserWithPassword } from '../feature/admin_user/AdminUserSlice';
 import { getUserById } from '../feature/user/UserSlice';
 
 const { Title } = Typography;
@@ -16,9 +16,7 @@ const ClientAccountManagement = () => {
 
   const userAccount = useSelector((state) => state.userReducer.userAccount);
   const updateUserStatus = useSelector((state) => state.adminUserReducer.updateUserStatus);
-  const updateUserWithoutPasswordStatus = useSelector(
-    (state) => state.adminUserReducer.updateUserWithoutPasswordStatus
-  );
+  const updateUserWithPasswordStatus = useSelector((state) => state.adminUserReducer.updateUserWithPasswordStatus);
 
   React.useEffect(() => {
     dispatch(getUserById({ id: localStorage.getItem('userid') }));
@@ -35,6 +33,24 @@ const ClientAccountManagement = () => {
     const { firstname, lastname, address, district, city, phone, email, password } = values;
     if (password) {
       await dispatch(
+        updateUserWithPassword({
+          id: localStorage.getItem('userid'),
+          firstname,
+          lastname,
+          address,
+          district,
+          city,
+          role: localStorage.getItem('userrole'),
+          phone,
+          email,
+          password,
+        })
+      );
+      if (updateUserWithPasswordStatus === 'ok') {
+        navigate('user/updateusersuccess');
+      }
+    } else {
+      await dispatch(
         updateUser({
           id: localStorage.getItem('userid'),
           firstname,
@@ -42,28 +58,12 @@ const ClientAccountManagement = () => {
           address,
           district,
           city,
+          role: localStorage.getItem('userrole'),
           phone,
           email,
-          password,
         })
       );
       if (updateUserStatus === 'ok') {
-        navigate('user/updateusersuccess');
-      }
-    } else {
-      await dispatch(
-        updateUserWithoutPassword({
-          id: localStorage.getItem('userid'),
-          firstname,
-          lastname,
-          address,
-          district,
-          city,
-          phone,
-          email,
-        })
-      );
-      if (updateUserWithoutPasswordStatus === 'ok') {
         navigate('user/updateusersuccess');
       }
     }

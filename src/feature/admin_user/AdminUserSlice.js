@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const getAllUsersUrl = 'http://localhost:8080/api/v1/users';
 const createNewUserUrl = 'http://localhost:8080/api/v1/insert-user';
-const updateUserWithoutPasswordUrl = 'http://localhost:44302/api/user/updateuserwithoutpassword';
+const updateUserWithoutPasswordUrl = 'http://localhost:8080/api/v1/update-user-without-password';
 const updateUserUrl = 'http://localhost:8080/api/v1/update-user';
 const deleteUserUrl = 'http://localhost:8080/api/v1/delete-user';
 
@@ -12,7 +12,7 @@ const initialState = {
   users: null,
   createUserStatus: null,
   updateUserStatus: null,
-  updateUserWithoutPasswordStatus: null,
+  updateUserWithPasswordStatus: null,
   deleteUserStatus: null,
 };
 
@@ -57,12 +57,12 @@ export const createNewUser = createAsyncThunk(
   }
 );
 
-export const updateUserWithoutPassword = createAsyncThunk(
-  '/api/user/updateuserwithoutpassword',
-  async ({ id, firstname, lastname, address, district, city, role, phone, email }, thunkApi) => {
+export const updateUserWithPassword = createAsyncThunk(
+  '/api/user/updateuserwithpassword',
+  async ({ id, firstname, lastname, address, district, city, role, phone, email, password }, thunkApi) => {
     const response = await axios({
       method: 'put',
-      url: updateUserWithoutPasswordUrl,
+      url: updateUserUrl,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -76,7 +76,7 @@ export const updateUserWithoutPassword = createAsyncThunk(
         role,
         phone,
         email,
-        password: '',
+        password,
         deleted: false,
       },
     });
@@ -86,11 +86,11 @@ export const updateUserWithoutPassword = createAsyncThunk(
 );
 
 export const updateUser = createAsyncThunk(
-  '/api/user/updateuser',
+  '/api/user/updateuserwithoutpassword',
   async ({ id, firstname, lastname, address, district, city, role, phone, email }, thunkApi) => {
     const response = await axios({
       method: 'put',
-      url: updateUserUrl,
+      url: updateUserWithoutPasswordUrl,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -151,8 +151,8 @@ export const adminUserSlice = createSlice({
     builder.addCase(createNewUser.fulfilled, (state, action) => {
       state.createUserStatus = action.payload;
     });
-    builder.addCase(updateUserWithoutPassword.fulfilled, (state, action) => {
-      state.updateUserWithoutPasswordStatus = action.payload;
+    builder.addCase(updateUserWithPassword.fulfilled, (state, action) => {
+      state.updateUserWithPasswordStatus = action.payload;
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.updateUserStatus = action.payload;

@@ -1,16 +1,24 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAddOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Row, Typography } from 'antd';
+import { Button, Form, Input, notification, Row, Typography } from 'antd';
 import axios from 'axios';
 
 const { Title } = Typography;
+
+const openNotification = () => {
+  notification.info({
+    message: `Please Try Again`,
+    description: 'Your sign up information is not valid. Please try again!',
+    placement: 'bottomRight',
+  });
+};
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const signUpUrl = 'https://localhost:44302/api/user/createuser';
+  const signUpUrl = 'http://localhost:8080/api/v1/insert-user';
 
   const handleOnFinish = async (values) => {
     const response = await axios({
@@ -23,15 +31,19 @@ const SignUp = () => {
         address: values.address,
         district: values.district,
         city: values.city,
-        role: '',
+        role: 'user',
         phone: values.phone,
         email: values.email,
         password: values.password,
+        deleted: false,
       },
     });
 
-    if (response.data.message === 'User created') {
+    if (response.data.status === 'ok') {
       navigate('/user/createusersuccess');
+    } else {
+      form.resetFields();
+      openNotification();
     }
   };
 
