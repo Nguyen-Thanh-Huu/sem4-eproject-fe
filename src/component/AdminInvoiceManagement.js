@@ -11,7 +11,11 @@ const { Option } = Select;
 
 const invoiceColumns = [
   { title: 'Invoice ID', dataIndex: 'id' },
-  { title: 'Created At', dataIndex: 'createat' },
+  {
+    title: 'Created At',
+    dataIndex: 'createat',
+    render: (t, r) => <span>{`${new Date(r.createat).toLocaleString()}`} </span>,
+  },
   { title: 'Status', dataIndex: 'status' },
   { title: 'Total (USD)', dataIndex: 'totalprice' },
 ];
