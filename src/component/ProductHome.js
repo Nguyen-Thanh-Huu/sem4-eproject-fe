@@ -53,6 +53,14 @@ const ProductHome = () => {
     dispatch(getAllProductsByCategoryId({ categoryId: ex.target.value }));
   };
 
+  const handleSearch = (value) => {
+    if (value) {
+      dispatch(getProductByName({ name: value }));
+    } else {
+      dispatch(getAllProducts());
+    }
+  };
+
   return (
     <div style={{ backgroundColor: '#faf1e2' }}>
       <Col span={24}>
@@ -71,24 +79,15 @@ const ProductHome = () => {
           </Col>
         </Row>
 
-        <Row justify="center" gutter={16}>
-          <Col span={12}>
+        <Row align="middle" style={{ paddingTop: '2rem', margin: 'auto', width: '47%' }}>
+          <Col span={24}>
             <Search
               placeholder="Enter Product Name..."
               allowClear
+              onSearch={handleSearch}
               enterButton="Search"
               size="large"
-              // onSearch={handleSearch}
             />
-          </Col>
-          <Col span={4}></Col>
-          <Col span={4}>
-            <Select
-              placeholder="Filter by Service"
-              // onChange={handleFilterByService}
-              style={{ width: '100%' }}
-              size="large"
-            ></Select>
           </Col>
         </Row>
 

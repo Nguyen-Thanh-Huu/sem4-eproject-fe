@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const getAllProductsUrl = 'http://localhost:8080/api/v1/products';
 const getProductByIdUrl = 'http://localhost:8080/api/v1/product';
+const getProductByNameUrl = 'http://localhost:8080/api/v1/search-by-name';
 const getAllCategoriesUrl = 'http://localhost:8080/api/v1/categories';
 const getAllByAlcoholUrl = 'http://localhost:8080/api/v1/alcohol?alcoholNumber=';
 const getProductByCategoryIdUrl = 'http://localhost:8080/api/v1/product-by-cateId';
@@ -74,6 +75,18 @@ export const getAllProductsByCategoryId = createAsyncThunk(
   }
 );
 
+export const getProductByName = createAsyncThunk('/api/search-by-name', async ({ name }, thunkApi) => {
+  const response = await axios({
+    method: 'post',
+    url: getProductByNameUrl,
+    data: {
+      name,
+    },
+  });
+
+  return response.data.responseObject;
+});
+
 export const productSlice = createSlice({
   name: 'productSlice',
   initialState,
@@ -89,6 +102,9 @@ export const productSlice = createSlice({
       state.products = action.payload;
     });
     builder.addCase(getAllProductsByCategoryId.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
+    builder.addCase(getProductByName.fulfilled, (state, action) => {
       state.products = action.payload;
     });
   },
