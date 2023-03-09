@@ -2,20 +2,37 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Col, Divider, Image, Input, Pagination, Row, Select, Spin, Typography } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Col,
+  Divider,
+  Image,
+  Input,
+  Pagination,
+  Radio,
+  Row,
+  Select,
+  Space,
+  Spin,
+  Typography,
+} from 'antd';
 
 import { getAllProducts } from '../feature/admin_product/AdminProductSlice';
 import { addToCart } from '../feature/cart/CartSlice';
 import { getAllCategories } from '../feature/category/CategorySlice';
+import { getAllByLeverAlcohol, getAllProductsByCategoryId, getProductByName } from '../feature/product/ProductSlice';
 
 const { Title } = Typography;
 const { Search } = Input;
-const { Option } = Select;
 
 const ProductHome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
+  const allCate = useSelector((state) => state.categoryReducer.categories);
+  const [alcoholLevel, setAlcoholLevel] = React.useState('all');
+  const [categoryId, setCategoryId] = React.useState('');
 
   React.useEffect(() => {
     dispatch(getAllCategories());
@@ -24,6 +41,16 @@ const ProductHome = () => {
 
   const handleAddToCartClick = (product) => {
     dispatch(addToCart(product));
+  };
+
+  const filterAlcohol = (e) => {
+    setAlcoholLevel(e.target.value);
+    dispatch(getAllByLeverAlcohol({ alcoholLevel: e.target.value }));
+  };
+
+  const filterProductByCategory = (ex) => {
+    setCategoryId(ex.target.value);
+    dispatch(getAllProductsByCategoryId({ categoryId: ex.target.value }));
   };
 
   return (
@@ -44,8 +71,68 @@ const ProductHome = () => {
           </Col>
         </Row>
 
+        <Row justify="center" gutter={16}>
+          <Col span={12}>
+            <Search
+              placeholder="Enter Product Name..."
+              allowClear
+              enterButton="Search"
+              size="large"
+              // onSearch={handleSearch}
+            />
+          </Col>
+          <Col span={4}></Col>
+          <Col span={4}>
+            <Select
+              placeholder="Filter by Service"
+              // onChange={handleFilterByService}
+              style={{ width: '100%' }}
+              size="large"
+            ></Select>
+          </Col>
+        </Row>
+
         <Row gutter={16} style={{ marginTop: 40, marginBottom: 40 }}>
-          <Col span={6}></Col>
+          <Col span={6}>
+            <Row style={{ marginLeft: '8rem', marginTop: '0.7rem' }}>
+              <Col>
+                <p>
+                  <Title style={{ fontSize: '1rem', display: 'block' }}> Alcohol concentration </Title>
+                </p>
+                <p>
+                  <Radio.Group onChange={filterAlcohol} value={alcoholLevel}>
+                    <Space direction="vertical">
+                      <Radio value="all"> All products </Radio>
+                      <Radio value="3"> Less than 3% </Radio>
+                      <Radio value="5"> Less than 5% </Radio>
+                      <Radio value="12"> Less than 12% </Radio>
+                      <Radio value="15"> Less than 15% </Radio>
+                    </Space>
+                  </Radio.Group>
+                </p>
+              </Col>
+            </Row>
+            <Row style={{ marginLeft: '8rem', marginTop: '0.7rem' }}>
+              <Col>
+                <p>
+                  <Title style={{ fontSize: '1rem', display: 'block' }}> Category </Title>
+                </p>
+                <p>
+                  <Radio.Group onChange={filterProductByCategory} value={categoryId}>
+                    <Space direction="vertical">
+                      {allCate
+                        ? allCate.map((category) => (
+                            <Radio key={category.id} value={category.id}>
+                              {category.name}
+                            </Radio>
+                          ))
+                        : null}
+                    </Space>
+                  </Radio.Group>
+                </p>
+              </Col>
+            </Row>
+          </Col>
           <Col span={18}>
             <Row align="middle">
               {products ? (
