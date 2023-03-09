@@ -194,14 +194,6 @@ const ProductHome = () => {
                 </Row>
               )}
             </Row>
-            <div align="middle" style={{ marginTop: 16, marginBottom: 16 }}>
-              <Pagination
-                total={85}
-                showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-                defaultPageSize={20}
-                defaultCurrent={1}
-              />
-            </div>
           </Col>
         </Row>
       </Col>
