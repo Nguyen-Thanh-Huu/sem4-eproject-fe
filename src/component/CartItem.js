@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Image, Input, notification, Row, Tooltip, Typography } from 'antd';
+import { Button, Col, Image, Input, notification, Row, Space, Tooltip, Typography } from 'antd';
 
 import { removeFromCart, removeItem, setQuantity } from '../feature/cart/CartSlice';
 
@@ -47,9 +47,9 @@ const CartItem = ({ item }) => {
   };
 
   return (
-    <Row justify="center" style={{ width: '80%', margin: 'auto', marginBottom: 32 }}>
-      <Col span={4} style={{ marginRight: 16 }}>
-        <Image size={'20%'} src={item.image} />
+    <Row gutter={25} justify="center" style={{ width: '100%', margin: 'auto', marginBottom: 32 }}>
+      <Col span={3}>
+        <Image height="340px" width="150px" src={item.image} />
       </Col>
       <Col span={5}>
         <Title level={3}>{item.name}</Title>
@@ -87,8 +87,15 @@ const CartItem = ({ item }) => {
           />
         </Tooltip>
       </Col>
-      <Col span={3}>
-        <Title level={4}>{item.totalprice} USD</Title>
+      <Col span={4}>
+        <Title
+          level={4}
+          style={{
+            color: '#D65D0E',
+          }}
+        >
+          {item.totalprice} USD
+        </Title>
       </Col>
     </Row>
   );

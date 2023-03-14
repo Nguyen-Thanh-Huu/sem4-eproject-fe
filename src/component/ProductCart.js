@@ -70,136 +70,174 @@ const ProductCart = () => {
   // };
 
   return (
-    <Row>
-      {cartItems.length > 0 ? (
-        <Col span={24}>
-          <Title
-            level={2}
-            style={{
-              marginLeft: '16rem',
-              marginTop: '4rem',
-              color: '#076678',
-              fontSize: '4rem',
-              fontWeight: 'bolder',
-              textAlign: 'left',
-              textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
-            }}
-          >
-            Order List
-          </Title>
-          <Row justify="center" style={{ marginBottom: 32, marginTop: 32 }}>
-            <Col span={4}></Col>
-            <Col span={5}>
-              <Title level={4}>Product Name</Title>
-            </Col>
-            <Col span={3}>
-              <Title level={4}>Unit Price</Title>
-            </Col>
-            <Col span={2}>
-              <Title level={4}>Quantity</Title>
-            </Col>
-            <Col span={4}>
-              <Title level={4}>Total</Title>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              {cartItems.map((item) => (
-                <div key={item.id}>
-                  <CartItem item={item} />
-                </div>
-              ))}
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{ marginLeft: '16rem', marginTop: '4rem' }}>
-              <Title
-                level={2}
-                style={{
-                  color: '#076678',
-                  fontSize: '4rem',
-                  fontWeight: 'bolder',
-                  textAlign: 'left',
-                  textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
-                }}
-              >
-                Total Price
-              </Title>
-              <Title
-                level={2}
-                style={{
-                  color: '#D65D0E',
-                  fontSize: '3rem',
-                  fontWeight: 'bolder',
-                  textAlign: 'left',
-                }}
-              >
-                {invoiceTotalPrice} USD
-              </Title>
+    <div style={{ backgroundColor: '#faf1e2' }}>
+      <Row>
+        {cartItems.length > 0 ? (
+          <Col span={24}>
+            <Title
+              level={2}
+              style={{
+                marginLeft: '16rem',
+                marginTop: '4rem',
+                fontSize: '3.5rem',
+                fontWeight: 'bolder',
+                color: '#023a21',
+              }}
+            >
+              Order List
+            </Title>
+            <Row gutter={25} justify="center" style={{ marginBottom: 32, marginTop: 32 }}>
+              <Col span={3}></Col>
+              <Col span={5}>
+                <Title
+                  level={4}
+                  style={{
+                    fontSize: '1.7rem',
+                    fontWeight: 'bolder',
+                    color: '#023a21',
+                  }}
+                >
+                  Product Name
+                </Title>
+              </Col>
+              <Col span={3}>
+                <Title
+                  level={4}
+                  style={{
+                    fontSize: '1.7rem',
+                    fontWeight: 'bolder',
+                    color: '#023a21',
+                  }}
+                >
+                  Unit Price
+                </Title>
+              </Col>
+              <Col span={3}>
+                <Title
+                  level={4}
+                  style={{
+                    fontSize: '1.7rem',
+                    fontWeight: 'bolder',
+                    color: '#023a21',
+                  }}
+                >
+                  Quantity
+                </Title>
+              </Col>
+              <Col span={4}>
+                <Title
+                  level={4}
+                  style={{
+                    fontSize: '1.7rem',
+                    fontWeight: 'bolder',
+                    color: '#023a21',
+                  }}
+                >
+                  Total
+                </Title>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                {cartItems.map((item) => (
+                  <div key={item.id}>
+                    <CartItem item={item} />
+                  </div>
+                ))}
+              </Col>
+            </Row>
 
-              {localStorage.getItem('userAddress') ? (
-                <>
+            <Row
+              justify="center"
+              gutter={300}
+              style={{
+                marginTop: '3rem',
+              }}
+            >
+              <Col>
+                {localStorage.getItem('userAddress') ? (
+                  <>
+                    <Title
+                      level={2}
+                      style={{
+                        fontSize: '3.5rem',
+                        fontWeight: 'bolder',
+                        color: '#023a21',
+                      }}
+                    >
+                      Shipping Address
+                    </Title>
+                    <Title level={4}>Address: {localStorage.getItem('userAddress')}</Title>
+                    <Title level={4}>District: {localStorage.getItem('userDistrict')}</Title>
+                    <Title level={4}>City: {localStorage.getItem('userCity')}</Title>
+                  </>
+                ) : null}
+              </Col>
+              <Col>
+                <Title
+                  level={2}
+                  style={{
+                    fontSize: '3.5rem',
+                    fontWeight: 'bolder',
+                    color: '#023a21',
+                  }}
+                >
+                  Total Price
+                </Title>
+                <Title
+                  style={{
+                    color: '#D65D0E',
+                    fontWeight: 'bolder',
+                    textAlign: 'left',
+                  }}
+                >
+                  {invoiceTotalPrice} USD
+                </Title>
+                <Row style={{ marginTop: 16, marginBottom: 128 }}>
+                  <StripeButton price={invoiceTotalPrice} />
+                  {/* <Button type="primary" shape="round" onClick={handleCreateInvoice} icon={<ScheduleOutlined />}>
+              Create Order
+            </Button> */}
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        ) : (
+          <Col span={24}>
+            <Row justify="center" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
+              <Col>
+                <Row justify="center">
                   <Title
-                    level={2}
                     style={{
                       color: '#076678',
                       fontSize: '4rem',
                       fontWeight: 'bolder',
-                      textAlign: 'left',
+                      textAlign: 'center',
                       textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
                     }}
                   >
-                    Shipping Address
+                    {!createdInvoiceId ? 'Please go shopping first!' : 'The cart is empty now!'}
                   </Title>
-                  <Title level={4}>Address: {localStorage.getItem('userAddress')}</Title>
-                  <Title level={4}>District: {localStorage.getItem('userDistrict')}</Title>
-                  <Title level={4}>City: {localStorage.getItem('userCity')}</Title>
-                </>
-              ) : null}
-            </Col>
-          </Row>
-          <Row justify="center" style={{ marginTop: 16, marginBottom: 128 }}>
-            <StripeButton price={invoiceTotalPrice} />
-            {/* <Button type="primary" shape="round" onClick={handleCreateInvoice} icon={<ScheduleOutlined />}>
-              Create Order
-            </Button> */}
-          </Row>
-        </Col>
-      ) : (
-        <Col span={24}>
-          <Row justify="center" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
-            <Col>
-              <Row justify="center">
-                <Title
-                  style={{
-                    color: '#076678',
-                    fontSize: '4rem',
-                    fontWeight: 'bolder',
-                    textAlign: 'center',
-                    textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
-                  }}
-                >
-                  {!createdInvoiceId ? 'Please go shopping first!' : 'The cart is empty now!'}
-                </Title>
-              </Row>
-              <Row justify="center">
-                <img
-                  src={shoppingImage}
-                  width={600}
-                  height={400}
-                  style={{
-                    boxShadow: '10px 10px 0px rgba(131,165,152,0.7)',
-                    borderStyle: 'solid',
-                    borderWidth: '1px',
-                    borderColor: 'rgba(131,165,152,0.7)',
-                  }}
-                />
-              </Row>
-            </Col>
-          </Row>
-        </Col>
-      )}
-    </Row>
+                </Row>
+                <Row justify="center">
+                  <img
+                    src={shoppingImage}
+                    width={600}
+                    height={400}
+                    style={{
+                      boxShadow: '10px 10px 0px rgba(131,165,152,0.7)',
+                      borderStyle: 'solid',
+                      borderWidth: '1px',
+                      borderColor: 'rgba(131,165,152,0.7)',
+                    }}
+                  />
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        )}
+      </Row>
+    </div>
   );
 };
 

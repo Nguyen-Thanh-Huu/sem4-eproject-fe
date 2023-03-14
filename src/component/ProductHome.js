@@ -153,7 +153,7 @@ const ProductHome = () => {
                       </Title>
                     </div>
 
-                    <Image height="340px" width="150px" src={product.image} />
+                    <Image height="330px" width="150px" src={product.image} />
 
                     <Row justify="space-evenly" style={{ marginTop: 16, marginBottom: 16 }}>
                       <Col span={16}>
