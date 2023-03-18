@@ -12,7 +12,7 @@ import { InvoiceStatus } from './ProductCart';
 const StripeButton = ({ price }) => {
   const paymentUrl = 'http://localhost:8080/api/v1/payment';
   const publicKey =
-    'pk_test_51Mg6kqExTKEZVeFvXIV2X41KTKjoDH4Xtpw92S6gEpvM9Y9N6K0MAKIov3gyCb1T0itVw6CjA2IdH7FJg1V1rgbG00JTxZKX3E';
+    'pk_test_51MfJUvB1mwYr0O8tixE5QiN7d3UNeb1WOa0iInh4k2sxxYys4abZd6G6Bv4kAcXBrK4Yn86wSeRIsdejnklmbE8z00C3tumNNn';
   const stripePrice = price * 100;
 
   const dispatch = useDispatch();
