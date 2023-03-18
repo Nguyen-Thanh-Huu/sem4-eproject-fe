@@ -65,12 +65,7 @@ const ProductsComponent = () => {
             <ProductItemComponent imgurl={otherWineProductImage} title={'OTHER WINE'} />
           </Col>
         </Row>
-        <Button
-          type="primary"
-          size="large"
-          onClick={handleClick}
-          style={{ background: '#d06539', borderColor: '#d06539' }}
-        >
+        <Button type="primary" size="large" onClick={handleClick}>
           LOOK MORE
         </Button>
       </div>

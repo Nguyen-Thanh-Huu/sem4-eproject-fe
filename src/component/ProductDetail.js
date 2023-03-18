@@ -107,12 +107,7 @@ const ProductDetail = () => {
                   </Card>
                 </Row>
                 <Row style={{ marginTop: 16, marginBottom: 16, paddingTop: '1.5rem' }}>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    onClick={handleAddToCart}
-                    style={{ background: '#d06539', borderColor: '#d06539' }}
-                  >
+                  <Button type="primary" shape="round" onClick={handleAddToCart}>
                     Add to Cart
                   </Button>
                 </Row>
@@ -138,7 +133,6 @@ const ProductDetail = () => {
                         htmlType="button"
                         onClick={handleCreateFeedback}
                         icon={<SendOutlined />}
-                        style={{ background: '#d06539', borderColor: '#d06539' }}
                       >
                         Send Feedback
                       </Button>

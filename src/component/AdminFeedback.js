@@ -41,7 +41,7 @@ const AdminFeedback = () => {
   // Table
   const columns = [
     {
-      title: 'UserName',
+      title: 'User Name',
       dataIndex: 'name',
       key: 'name',
     },
@@ -66,6 +66,7 @@ const AdminFeedback = () => {
     onChange: onSelectChange,
   };
 
+  console.log(data);
   return (
     <div style={{ padding: 16 }}>
       <Row justify="center">

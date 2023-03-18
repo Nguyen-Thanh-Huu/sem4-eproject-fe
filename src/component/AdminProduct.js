@@ -250,6 +250,7 @@ const AdminProduct = () => {
       sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ['descend', 'ascend'],
     },
+    { title: 'Image', dataIndex: 'image', render: (t, r) => <img width={100} height={200} src={`${r.image}`} /> },
     {
       title: 'Price',
       dataIndex: 'price',
@@ -265,7 +266,7 @@ const AdminProduct = () => {
     {
       title: 'Alcohol',
       dataIndex: 'alcohol',
-      sorter: (a, b) => a.alcohol.localeCompare(b.alcohol),
+      sorter: (a, b) => a.alcohol - b.alcohol,
       sortDirections: ['descend', 'ascend'],
     },
   ];

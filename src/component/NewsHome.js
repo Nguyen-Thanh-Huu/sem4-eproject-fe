@@ -54,7 +54,7 @@ function NewsHome() {
         {storedNews
           ? storedNews.map((news, index) => (
               <Col span={24} key={index}>
-                <Row style={{ marginBottom: '-1.2rem' }}>
+                <Row style={{ marginBottom: '-1.2rem' }} align="middle">
                   <Col span={6}>
                     <div style={{ width: '200px', height: '150px' }}>
                       <Image width={240} src={news.image} />
@@ -64,15 +64,17 @@ function NewsHome() {
                     <Card
                       bordered={false}
                       style={{
-                        width: 810,
                         height: 127,
+                        backgroundColor: '#faf1e2',
+                        marginBottom: '40px',
                       }}
                     >
-                      <Button
+                      <a
                         onClick={() => navigate(news.id)}
                         style={{
-                          color: 'black',
-                          fontSize: '1rem',
+                          color: '#511318',
+                          backgroundColor: '#faf1e2',
+                          fontSize: '1.3rem',
                           fontWeight: 'bolder',
                           display: 'block',
                           marginBottom: '0.2rem',
@@ -81,7 +83,7 @@ function NewsHome() {
                         }}
                       >
                         {news.title}
-                      </Button>
+                      </a>
                       <div style={{ marginBottom: '0.3rem' }}>
                         <FieldTimeOutlined /> <span> {new Date(news.createat).toLocaleString()} </span>
                       </div>

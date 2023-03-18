@@ -45,58 +45,60 @@ const SignIn = () => {
   }, [user]);
 
   return (
-    <div style={{ width: '80%', margin: 'auto', marginTop: '4rem', marginBottom: '12rem' }}>
-      <Row justify="center">
-        <Title
-          style={{
-            color: '#076678',
-            fontSize: '4rem',
-            fontWeight: 'bolder',
-            textAlign: 'left',
-            textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
+    <div style={{ backgroundColor: '#faf1e2' }}>
+      <div style={{ width: '80%', margin: 'auto', marginTop: '4rem', marginBottom: '12rem' }}>
+        <Row justify="center">
+          <Title
+            style={{
+              color: '#076678',
+              fontSize: '4rem',
+              fontWeight: 'bolder',
+              textAlign: 'left',
+              textShadow: '6px 6px 0px rgba(131,165,152,0.7)',
+            }}
+          >
+            Sign In
+          </Title>
+        </Row>
+        <Form
+          name="basic"
+          layout="vertical"
+          form={form}
+          initialValues={{ remember: true }}
+          autoComplete="off"
+          labelCol={{
+            span: 8,
+            offset: 8,
           }}
+          wrapperCol={{
+            span: 8,
+            offset: 8,
+          }}
+          onFinish={handleOnFinish}
         >
-          Sign In
-        </Title>
-      </Row>
-      <Form
-        name="basic"
-        layout="vertical"
-        form={form}
-        initialValues={{ remember: true }}
-        autoComplete="off"
-        labelCol={{
-          span: 8,
-          offset: 8,
-        }}
-        wrapperCol={{
-          span: 8,
-          offset: 8,
-        }}
-        onFinish={handleOnFinish}
-      >
-        <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your username!' }]}>
-          <Input />
-        </Form.Item>
+          <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your username!' }]}>
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+          >
+            <Input.Password />
+          </Form.Item>
 
-        {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+          {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
           <Checkbox>Remember me</Checkbox>
         </Form.Item> */}
 
-        <Form.Item wrapperCol={{ span: 8, offset: 8 }}>
-          <Button type="primary" shape="round" htmlType="submit" block icon={<LoginOutlined />}>
-            Sign In
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item wrapperCol={{ span: 8, offset: 8 }}>
+            <Button type="primary" shape="round" htmlType="submit" block icon={<LoginOutlined />}>
+              Sign In
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 };

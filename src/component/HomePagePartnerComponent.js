@@ -87,12 +87,7 @@ const PartnerComponent = () => {
               </p>
             </div>
             <div align="left">
-              <Button
-                type="primary"
-                size="large"
-                onClick={handleClick}
-                style={{ background: '#d06539', borderColor: '#d06539' }}
-              >
+              <Button type="primary" size="large" onClick={handleClick}>
                 SHOP NOW
               </Button>
             </div>

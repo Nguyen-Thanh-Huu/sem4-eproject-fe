@@ -50,12 +50,7 @@ const IntroductionComponent = () => {
             </p>
           </div>
           <div className={styles.introductionButton}>
-            <Button
-              type="primary"
-              size="large"
-              onClick={handleClick}
-              style={{ background: '#d06539', borderColor: '#d06539' }}
-            >
+            <Button type="primary" size="large" onClick={handleClick}>
               SHOP NOW
             </Button>
           </div>

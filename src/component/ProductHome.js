@@ -189,20 +189,14 @@ const ProductHome = () => {
                       </Col>
                     </Row>
                     <Divider />
-                    <Row style={{ marginBottom: 16 }}>
-                      <Col span={14}>
+                    <Row style={{ marginBottom: 16 }} justify="center">
+                      <Col span={10}>
                         <Title level={4} style={{ color: '#D65D0E' }}>
                           {product.price} USD
                         </Title>
                       </Col>
-                      <Col span={10}>
-                        <Button
-                          block
-                          type="primary"
-                          shape="round"
-                          style={{ background: '#d06539', borderColor: '#d06539' }}
-                          onClick={() => handleAddToCartClick(product)}
-                        >
+                      <Col span={9}>
+                        <Button block type="primary" shape="round" onClick={() => handleAddToCartClick(product)}>
                           Add to Cart
                         </Button>
                       </Col>
