@@ -21,7 +21,12 @@ import {
 import { getAllProducts } from '../feature/admin_product/AdminProductSlice';
 import { addToCart } from '../feature/cart/CartSlice';
 import { getAllCategories } from '../feature/category/CategorySlice';
-import { getAllByLeverAlcohol, getAllProductsByCategoryId, getProductByName } from '../feature/product/ProductSlice';
+import {
+  getAllByLeverAlcohol,
+  getAllProductsByCategoryId,
+  getByAlcoholAndCategoriesId,
+  getProductByName,
+} from '../feature/product/ProductSlice';
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -31,12 +36,12 @@ const ProductHome = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.productReducer.products);
   const allCate = useSelector((state) => state.categoryReducer.categories);
-  const [alcoholLevel, setAlcoholLevel] = React.useState('all');
-  const [categoryId, setCategoryId] = React.useState('');
 
+  const gAlcohol = sessionStorage.getItem('alcohol');
+  const gCateId = sessionStorage.getItem('cate');
   React.useEffect(() => {
     dispatch(getAllCategories());
-    dispatch(getAllProducts());
+    handleFilter(gAlcohol, gCateId);
   }, []);
 
   const handleAddToCartClick = (product) => {
@@ -44,13 +49,28 @@ const ProductHome = () => {
   };
 
   const filterAlcohol = (e) => {
-    setAlcoholLevel(e.target.value);
-    dispatch(getAllByLeverAlcohol({ alcoholLevel: e.target.value }));
+    sessionStorage.setItem('alcohol', e.target.value);
+    handleFilter(e.target.value, gCateId);
   };
 
-  const filterProductByCategory = (ex) => {
-    setCategoryId(ex.target.value);
-    dispatch(getAllProductsByCategoryId({ categoryId: ex.target.value }));
+  const filterProductByCategory = (e) => {
+    sessionStorage.setItem('cate', e.target.value);
+    handleFilter(gAlcohol, e.target.value);
+  };
+
+  const handleFilter = (alcohol, categoryid) => {
+    if ((!alcohol && !categoryid) || (alcohol === 'all' && categoryid === 'all')) {
+      dispatch(getAllProducts());
+    }
+    if (alcohol && categoryid && alcohol !== 'all' && categoryid !== 'all') {
+      dispatch(getByAlcoholAndCategoriesId({ alcohol, categoryid }));
+    }
+    if (alcohol && alcohol !== 'all' && (!categoryid || categoryid === 'all')) {
+      dispatch(getAllByLeverAlcohol({ alcoholLevel: alcohol }));
+    }
+    if (categoryid && categoryid !== 'all' && (!alcohol || alcohol === 'all')) {
+      dispatch(getAllProductsByCategoryId({ categoryId: categoryid }));
+    }
   };
 
   const handleSearch = (value) => {
@@ -99,7 +119,7 @@ const ProductHome = () => {
                   <Title style={{ fontSize: '1rem', display: 'block' }}> Alcohol concentration </Title>
                 </p>
                 <p>
-                  <Radio.Group onChange={filterAlcohol} value={alcoholLevel}>
+                  <Radio.Group onChange={filterAlcohol} value={gAlcohol ?? 'all'}>
                     <Space direction="vertical">
                       <Radio value="all"> All products </Radio>
                       <Radio value="3"> Less than 3% </Radio>
@@ -117,8 +137,9 @@ const ProductHome = () => {
                   <Title style={{ fontSize: '1rem', display: 'block' }}> Category </Title>
                 </p>
                 <p>
-                  <Radio.Group onChange={filterProductByCategory} value={categoryId}>
+                  <Radio.Group onChange={filterProductByCategory} value={gCateId ?? 'all'}>
                     <Space direction="vertical">
+                      <Radio value="all"> All Product </Radio>
                       {allCate
                         ? allCate.map((category) => (
                             <Radio key={category.id} value={category.id}>

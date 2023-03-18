@@ -8,6 +8,7 @@ const getProductByNameUrl = 'http://localhost:8080/api/v1/search-by-name';
 const getAllCategoriesUrl = 'http://localhost:8080/api/v1/categories';
 const getAllByAlcoholUrl = 'http://localhost:8080/api/v1/alcohol?alcoholNumber=';
 const getProductByCategoryIdUrl = 'http://localhost:8080/api/v1/product-by-cateId';
+const getAllAlcoholAndCategoriesIdUrl = 'http://localhost:8080/api/v1/filter-combine';
 
 const initialState = {
   products: null,
@@ -57,7 +58,6 @@ export const getAllByLeverAlcohol = createAsyncThunk('/api/alcohol', async ({ al
     method: 'get',
     url: getAllByAlcoholUrl + alcoholLevel,
   });
-
   return response.data.responseObject;
 });
 
@@ -87,6 +87,21 @@ export const getProductByName = createAsyncThunk('/api/search-by-name', async ({
   return response.data.responseObject;
 });
 
+export const getByAlcoholAndCategoriesId = createAsyncThunk(
+  '/api/filter-combine',
+  async ({ alcohol, categoryid }, thunkApi) => {
+    const response = await axios({
+      method: 'post',
+      url: getAllAlcoholAndCategoriesIdUrl,
+      data: {
+        alcohol: alcohol,
+        cateid: categoryid,
+      },
+    });
+    return response.data.responseObject;
+  }
+);
+
 export const productSlice = createSlice({
   name: 'productSlice',
   initialState,
@@ -105,6 +120,9 @@ export const productSlice = createSlice({
       state.products = action.payload;
     });
     builder.addCase(getProductByName.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
+    builder.addCase(getByAlcoholAndCategoriesId.fulfilled, (state, action) => {
       state.products = action.payload;
     });
   },
