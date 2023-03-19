@@ -79,6 +79,9 @@ const ProductHome = () => {
     } else {
       dispatch(getAllProducts());
     }
+
+    sessionStorage.setItem('cate', 'all');
+    sessionStorage.setItem('alcohol', 'all');
   };
 
   return (
