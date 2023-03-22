@@ -15,6 +15,7 @@ const initialState = {
   invoices: null,
   invoicesByUserId: null,
   updateInvoiceStatus: '',
+  invoiceCreationStatus: '',
 };
 
 export const createInvoice = createAsyncThunk(
@@ -101,7 +102,11 @@ export const updateInvoice = createAsyncThunk(
 export const invoiceSlice = createSlice({
   name: 'invoiceSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setInvoiceCreationStatus: (state, action) => {
+      state.invoiceCreationStatus = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(createInvoice.fulfilled, (state, action) => {
       state.createdInvoiceId = action.payload.id;
@@ -117,5 +122,7 @@ export const invoiceSlice = createSlice({
     });
   },
 });
+
+export const { setInvoiceCreationStatus } = invoiceSlice.actions;
 
 export default invoiceSlice.reducer;

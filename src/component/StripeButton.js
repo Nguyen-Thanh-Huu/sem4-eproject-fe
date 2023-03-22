@@ -5,7 +5,7 @@ import { notification } from 'antd';
 import axios from 'axios';
 
 import { resetCart } from '../feature/cart/CartSlice';
-import { createInvoice } from '../feature/invoice/InvoiceSlice';
+import { createInvoice, setInvoiceCreationStatus } from '../feature/invoice/InvoiceSlice';
 
 import { InvoiceStatus } from './ProductCart';
 
@@ -41,6 +41,7 @@ const StripeButton = ({ price }) => {
     // dispatch(resetCart());
 
     if (userid) {
+      dispatch(setInvoiceCreationStatus('doing'));
       const createat = new Date().toISOString();
       const status = InvoiceStatus.REQUEST_RECEIVED;
 
@@ -48,9 +49,11 @@ const StripeButton = ({ price }) => {
       cartItems.map((item) => (totalprice += parseInt(item.totalprice)));
 
       await dispatch(createInvoice({ createat, status, totalprice, userid, cartItems }));
+      dispatch(setInvoiceCreationStatus('done'));
       dispatch(resetCart());
     } else {
       openNotification();
+      dispatch(setInvoiceCreationStatus('done'));
     }
   };
 
