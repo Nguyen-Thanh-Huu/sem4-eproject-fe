@@ -9,6 +9,7 @@ import {
   Divider,
   Image,
   Input,
+  notification,
   Pagination,
   Radio,
   Row,
@@ -44,8 +45,18 @@ const ProductHome = () => {
     handleFilter(gAlcohol, gCateId);
   }, []);
 
+  const openNotification = () => {
+    notification.success({
+      message: `Add To Cart`,
+      description: 'One product is added to cart!',
+      placement: 'bottomRight',
+      duration: 1.5,
+    });
+  };
+
   const handleAddToCartClick = (product) => {
     dispatch(addToCart(product));
+    openNotification();
   };
 
   const filterAlcohol = (e) => {

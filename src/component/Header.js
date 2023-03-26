@@ -130,7 +130,7 @@ const Header = () => {
   );
 
   return (
-    <div className={styles.headerContainer}>
+    <div className={styles.headerContainer} style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
       <Row className={styles.headerSpace}>
         <Col span={4}>
           <img src={logoImage} style={{ width: '300px', height: '100px' }} />
