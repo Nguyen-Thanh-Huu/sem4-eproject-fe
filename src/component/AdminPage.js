@@ -2,11 +2,8 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {
-  AppstoreOutlined,
   CommentOutlined,
   IdcardOutlined,
-  LikeOutlined,
-  ProjectOutlined,
   ScheduleOutlined,
   ShopOutlined,
   StarOutlined,
@@ -18,14 +15,9 @@ import Sider from 'antd/lib/layout/Sider';
 
 const adminMenu = [
   { label: <Link to="/admin/user">Users</Link>, key: 'user', icon: <TeamOutlined /> },
-  { label: <Link to="/admin/project">Projects</Link>, key: 'project', icon: <ProjectOutlined /> },
   { label: <Link to="/admin/product">Products</Link>, key: 'product', icon: <ShopOutlined /> },
   { label: <Link to="/admin/invoice">Invoices</Link>, key: 'invoice', icon: <ScheduleOutlined /> },
-  { label: <Link to="/admin/customerreview">Customer Reviews</Link>, key: 'customerreview', icon: <LikeOutlined /> },
   { label: <Link to="/admin/contact">Contact</Link>, key: 'contact', icon: <IdcardOutlined /> },
-  { label: <Link to="/admin/aboutu">AboutUs</Link>, key: 'aboutu', icon: <AppstoreOutlined /> },
-  { label: <Link to="/admin/domain">Domain</Link>, key: 'domain', icon: <AppstoreOutlined /> },
-  { label: <Link to="/admin/service">Service</Link>, key: 'service', icon: <AppstoreOutlined /> },
   { label: <Link to="/admin/faq">Faq</Link>, key: 'faq', icon: <CommentOutlined /> },
   { label: <Link to="/admin/feedback">Feedback</Link>, key: 'feedback', icon: <StarOutlined /> },
   { label: <Link to="/admin/category">Category</Link>, key: 'category', icon: <StarOutlined /> },

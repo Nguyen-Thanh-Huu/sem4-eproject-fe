@@ -2,15 +2,9 @@ import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from 'antd';
 
-import AboutUsDemo from '../sub-component/AboutUsDemo';
-import ProjectDetail from '../sub-component/ProjectDetail';
-
 import AboutUsPage from './AboutUsPage';
-import AdminAboutUs from './AdminAboutUs';
 import AdminCategory from './AdminCategory';
 import AdminContact from './AdminContact';
-import AdminCustomerReview from './AdminCustomerReview';
-import AdminDomain from './AdminDomain';
 import AdminFaq from './AdminFaq';
 import AdminFeedback from './AdminFeedback';
 import AdminHome from './AdminHome';
@@ -18,8 +12,6 @@ import AdminInvoiceManagement from './AdminInvoiceManagement';
 import AdminNews from './AdminNews';
 import AdminPage from './AdminPage';
 import AdminProduct from './AdminProduct';
-import AdminProject from './AdminProject';
-import AdminService from './AdminService';
 import AdminUser from './AdminUser';
 import ClientAccountManagement from './ClientAccountManagement';
 import ClientInvoiceManagement from './ClientInvoiceManagement';
@@ -61,13 +53,8 @@ const AppContainer = () => {
 
               <Route path="admin" element={<AdminPage />}>
                 <Route index element={<AdminHome />} />
-                <Route path="project" element={<AdminProject />} />
                 <Route path="product" element={<AdminProduct />} />
                 <Route path="invoice" element={<AdminInvoiceManagement />} />
-                <Route path="customerreview" element={<AdminCustomerReview />} />
-                <Route path="aboutu" element={<AdminAboutUs />} />
-                <Route path="domain" element={<AdminDomain />} />
-                <Route path="service" element={<AdminService />} />
                 <Route path="user" element={<AdminUser />} />
                 <Route path="faq" element={<AdminFaq />} />
                 <Route path="feedback" element={<AdminFeedback />} />
