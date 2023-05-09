@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { SendOutlined } from '@ant-design/icons';
-import { Avatar, Button, Card, Col, Divider, Form, Image, Input, Row, Spin, Typography } from 'antd';
+import { Avatar, Button, Card, Col, Divider, Form, Image, Input, notification, Row, Spin, Typography } from 'antd';
 
 import { addToCart } from '../feature/cart/CartSlice';
 import { getAllCategories } from '../feature/category/CategorySlice';
@@ -26,8 +26,18 @@ const ProductDetail = () => {
     dispatch(getAllByProductId({ id: params.productId }));
   }, []);
 
+  const openNotification = () => {
+    notification.success({
+      message: `Add To Cart`,
+      description: 'One product is added to cart!',
+      placement: 'bottomRight',
+      duration: 1.5,
+    });
+  };
+
   const handleAddToCart = () => {
     dispatch(addToCart(productDetail));
+    openNotification();
   };
 
   const handleFeedbackChange = (e) => {

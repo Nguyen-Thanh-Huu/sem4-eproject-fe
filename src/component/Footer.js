@@ -27,18 +27,22 @@ const Footer = () => {
   const navigate = useNavigate();
   const handleClickHome = () => {
     navigate('/');
+    window.scrollTo(0, 0);
   };
   const handleClickProject = () => {
     navigate('project');
   };
   const handleClickProduct = () => {
     navigate('product');
+    window.scrollTo(0, 0);
   };
   const handleClickFaq = () => {
     navigate('faq');
+    window.scrollTo(0, 0);
   };
   const handleClickAboutus = () => {
     navigate('aboutus');
+    window.scrollTo(0, 0);
   };
   return (
     <div className={styles.footerContainer}>

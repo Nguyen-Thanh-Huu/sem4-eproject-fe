@@ -27,6 +27,7 @@ import ProductCart from './ProductCart';
 import ProductDetail from './ProductDetail';
 import ProductHome from './ProductHome';
 import ProductPage from './ProductPage';
+import ScrollToTop from './Scroll.js';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UnauthorizedPage from './UnauthorizedPage';
@@ -39,6 +40,7 @@ const AppContainer = () => {
   return (
     <div className={styles.appMargin}>
       <HashRouter>
+        <ScrollToTop />
         <Layout>
           <Header />
           <Layout>

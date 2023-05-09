@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, WindowsFilled } from '@ant-design/icons';
 import {
   Breadcrumb,
   Button,
@@ -72,15 +72,19 @@ const ProductHome = () => {
   const handleFilter = (alcohol, categoryid) => {
     if ((!alcohol && !categoryid) || (alcohol === 'all' && categoryid === 'all')) {
       dispatch(getAllProducts());
+      window.scrollTo(0, 0);
     }
     if (alcohol && categoryid && alcohol !== 'all' && categoryid !== 'all') {
       dispatch(getByAlcoholAndCategoriesId({ alcohol, categoryid }));
+      window.scrollTo(0, 0);
     }
     if (alcohol && alcohol !== 'all' && (!categoryid || categoryid === 'all')) {
       dispatch(getAllByLeverAlcohol({ alcoholLevel: alcohol }));
+      window.scrollTo(0, 0);
     }
     if (categoryid && categoryid !== 'all' && (!alcohol || alcohol === 'all')) {
       dispatch(getAllProductsByCategoryId({ categoryId: categoryid }));
+      window.scrollTo(0, 0);
     }
   };
 
