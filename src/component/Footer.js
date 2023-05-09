@@ -29,8 +29,8 @@ const Footer = () => {
     navigate('/');
     window.scrollTo(0, 0);
   };
-  const handleClickProject = () => {
-    navigate('project');
+  const handleClickNews = () => {
+    navigate('news');
   };
   const handleClickProduct = () => {
     navigate('product');
@@ -105,8 +105,8 @@ const Footer = () => {
             </a>
           </p>
           <p>
-            <a onClick={handleClickProject} className={styles.footerContent}>
-              Project
+            <a onClick={handleClickNews} className={styles.footerContent}>
+              News
             </a>
           </p>
           <p>
